@@ -21,17 +21,17 @@ const NewNFTs = (props: any) => {
       )}
       <button
         className={`w-[200px] flex-none relative mb-[20px] hover:opacity-70 transition-all duration-100 ${loading && "hidden"}`}
-        onClick={() => {
-          router.push(`/nfts/${props.item.id}`);
-        }}
+        // onClick={() => {
+        //   router.push(`/nfts/${props.item.id}`);
+        // }}
       >
-        <Image
+        <img
           src={props.item.link}
           width={0}
           height={0}
           alt=""
           className="w-[200px] h-auto"
-          priority={true}
+          // priority={true}
           onLoad={() => setLoading1(false)}
         />
         <div className="w-full h-[40%] bg-black absolute bottom-0 rounded-[18px] bg-opacity-25 backdrop-blur-[10px] flex-row px-[15px] py-[15px]">

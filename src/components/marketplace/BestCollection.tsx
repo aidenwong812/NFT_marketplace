@@ -17,20 +17,20 @@ const BestCollection = (props: any) => {
     {loading && <div className="w-[200px] rounded-[12px] bg-[#191919] animate-pulse h-[170px]"></div>}
       <button
         className={`w-[200px] relative flex-none mb-[20px] hover:opacity-70 ${loading && "hidden"}`}
-        onClick={() => {
-          router.push(`/nfts/${props.item.id}`);
-        }}
+        // onClick={() => {
+        //   router.push(`/nfts/${props.item.id}`);
+        // }}
       >
-        <Image
+        <img
           src={props.item.link}
           width={0}
           height={0}
           alt=""
           className="w-[200px] h-auto"
-          priority={true}
+          // priority={true}
           onLoad={() => setLoading1(false)}
         />
-        <div className="w-full h-[50%] bg-black absolute bottom-0 rounded-[25px] bg-opacity-25 backdrop-blur-[10px] flex-row">
+        <div className="w-full h-[20%] bg-black absolute bottom-0 rounded-[25px] bg-opacity-25 backdrop-blur-[10px] flex-row">
           <div className="w-full flex justify-center mt-[-45px]">
             <Image
               src={props.item.avatar}

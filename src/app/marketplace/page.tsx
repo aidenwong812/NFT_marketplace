@@ -18,14 +18,14 @@ const Page = () => {
     { link: "/chicken/1.jpg", avatar: "/avatar/18.svg", id: 1 },
     { link: "/chicken/2.jpg", avatar: "/avatar/18.svg", id: 2 },
     { link: "/chicken/3.jpg", avatar: "/avatar/18.svg", id: 3 },
-    { link: "/chicken/4.jpg", avatar: "/avatar/18.svg", id: 4 },
-    { link: "/chicken/5.jpg", avatar: "/avatar/18.svg", id: 5 },
-    { link: "/chicken/6.jpg", avatar: "/avatar/18.svg", id: 6 },
+    { link: "/chicken/1.jpg", avatar: "/avatar/18.svg", id: 4 },
+    { link: "/chicken/2.jpg", avatar: "/avatar/18.svg", id: 5 },
+    { link: "/chicken/3.jpg", avatar: "/avatar/18.svg", id: 6 },
     { link: "/chicken/1.jpg", avatar: "/avatar/18.svg", id: 7 },
     { link: "/chicken/2.jpg", avatar: "/avatar/18.svg", id: 8 },
     { link: "/chicken/3.jpg", avatar: "/avatar/18.svg", id: 9 },
-    { link: "/chicken/4.jpg", avatar: "/avatar/18.svg", id: 10 },
-    { link: "/chicken/5.jpg", avatar: "/avatar/18.svg", id: 11 },
+    { link: "/chicken/1.jpg", avatar: "/avatar/18.svg", id: 10 },
+    { link: "/chicken/2.jpg", avatar: "/avatar/18.svg", id: 11 },
   ];
   const explorer = [
     {
