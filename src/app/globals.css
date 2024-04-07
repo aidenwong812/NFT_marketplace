@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+:root {
+  --homemain-height: calc(100vh - 100px);
+  
+}
+
+::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /* background: #f1f1f1;  */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  /* background: #888;  */
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@font-face {
+  font-family: TTFirs;
+  src: url("/TT Firs Neue font/TT Firs Neue Trial Regular.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: TTFirsBold;
+  src: url("/TT Firs Neue font/TT Firs Neue Trial Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: MetanaBold;
+  src: url("/neue_metana/NeueMetana-Bold.otf") format("opentype");
+}
+@font-face {
+  font-family: Metana;
+  src: url("/neue_metana/NeueMetana-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: TTFirsDemiBold;
+  src: url("/TT Firs Neue font/TT Firs Neue Trial DemiBold.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: TTFirsExtraBold;
+  src: url("/TT Firs Neue font/TT Firs Neue Trial ExtraBold.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: TTFirsExtraLight;
+  src: url("/TT Firs Neue font/TT Firs Neue Trial ExtraLight.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: TTFirsLight;
+  src: url("/TT Firs Neue font/TT Firs Neue Trial Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: TTFirsMedium;
+  src: url("/TT Firs Neue font/TT Firs Neue Trial Medium.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: TTFirsRegular;
+  src: url("/TT Firs Neue font/TT Firs Neue Trial Regular.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: TTFirsThin;
+  src: url("/TT Firs Neue font/TT Firs Neue Trial Thin.ttf") format("truetype");
+}
+@font-face {
+  font-family: Abeezee_Italic;
+  src: url("/font/abeezee/ABeeZee-Italic.ttf") format("truetype");
+}
+@font-face {
+  font-family: Abeezee_Regular;
+  src: url("/font/abeezee/ABeeZee-Regular.ttf") format("truetype");
+}
+.tooltip {
+  @apply invisible absolute;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible z-50;
+}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}

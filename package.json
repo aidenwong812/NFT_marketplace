@@ -1,0 +1,39 @@
+{
+  "name": "biple_ongoing",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next export"
+  },
+  "dependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/firebase": "^3.2.1",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "firebase": "^10.10.0",
+    "jsonwebtoken": "^9.0.2",
+    "lottie-react": "^2.4.0",
+    "next": "14.1.2",
+    "nodemailer": "^6.9.13",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-firebase-hooks": "^5.1.1",
+    "react-verification-input": "^4.1.1",
+    "resend": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20",
+    "@types/nodemailer": "^6.4.14",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  }
+}
