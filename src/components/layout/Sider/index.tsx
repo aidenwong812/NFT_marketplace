@@ -16,7 +16,7 @@ const Sider = () => {
   const handleOpenLogout = () => {
     setLogout(!logout);
   };
-  const [loading, setLoading] = useState<boolean>(true);
+  // const [loading, setLoading] = useState<boolean>(true);
   const handleCloseSiderBar = () => {
     setSiderWidth(80);
     const sidebar = document.querySelector(".resize-current") as HTMLElement;
@@ -110,17 +110,17 @@ const Sider = () => {
             <div
               className={`h-auto ${siderWidth > 250 ? "w-[50px]" : "w-[40px]"}`}
             >
-              {loading && (
+              {/* {loading && (
                 <div className="w-full aspect-square bg-[#121212] rounded-[10px]"></div>
-              )}
-              <Image
-                src="/icon/logo.svg"
+              )} */}
+              <img
+                src="/icon/new-logo.jpg"
                 width={0}
                 height={0}
                 alt=""
-                className={`w-full h-auto ${loading && "hidden"}`}
-                priority={true}
-                onLoad={() => setLoading(false)}
+                className={`w-full h-auto`}
+                // priority={true}
+                // onLoad={() => setLoading(false)}
               />
             </div>
           </div>
