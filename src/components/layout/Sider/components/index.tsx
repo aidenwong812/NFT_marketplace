@@ -6,7 +6,7 @@ import Image from "next/image";
 const _renderLinkItem = (props: any) => {
   const router = useRouter();
   const handleNavigate = (_url: string) => {
-    router.push(_url);
+    // router.push(_url);
   };
   // const [loading, setLoading] = useState<boolean>(true);
   return (
