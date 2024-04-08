@@ -3,24 +3,24 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 const NewNFTs = (props: any) => {
-  const router = useRouter();
-  const [loading1, setLoading1] = useState<boolean>(true);
-  const [loading2, setLoading2] = useState<boolean>(true);
-  const [loading3, setLoading3] = useState<boolean>(true);
-  const [loading4, setLoading4] = useState<boolean>(true);
-  const [loading, setLoading] = useState<boolean>(true);
-  useEffect(() => {
-    if (!loading1 && !loading2 && !loading3 && !loading4) {
-      setLoading(false);
-    }
-  }, [loading1, loading2, loading3, loading4]);
+  // const router = useRouter();
+  // const [loading1, setLoading1] = useState<boolean>(true);
+  // const [loading2, setLoading2] = useState<boolean>(true);
+  // const [loading3, setLoading3] = useState<boolean>(true);
+  // const [loading4, setLoading4] = useState<boolean>(true);
+  // const [loading, setLoading] = useState<boolean>(true);
+  // useEffect(() => {
+  //   if (!loading1 && !loading2 && !loading3 && !loading4) {
+  //     setLoading(false);
+  //   }
+  // }, [loading1, loading2, loading3, loading4]);
   return (
     <>
-      {loading && (
+      {/* {loading && (
         <div className="w-[200px] rounded-[12px] bg-[#191919] animate-pulse h-[210px]"></div>
-      )}
+      )} */}
       <button
-        className={`w-[200px] flex-none relative mb-[20px] hover:opacity-70 transition-all duration-100 ${loading && "hidden"}`}
+        className={`w-[200px] flex-none relative mb-[20px] hover:opacity-70 transition-all duration-100`}
         // onClick={() => {
         //   router.push(`/nfts/${props.item.id}`);
         // }}
@@ -32,7 +32,7 @@ const NewNFTs = (props: any) => {
           alt=""
           className="w-[200px] h-auto"
           // priority={true}
-          onLoad={() => setLoading1(false)}
+          // onLoad={() => setLoading1(false)}
         />
         <div className="w-full h-[40%] bg-black absolute bottom-0 rounded-[18px] bg-opacity-25 backdrop-blur-[10px] flex-row px-[15px] py-[15px]">
           <div className="w-full inline-flex justify-between items-center">
@@ -44,7 +44,7 @@ const NewNFTs = (props: any) => {
               alt=""
               className="w-[20px] h-auto"
               priority={true}
-              onLoad={() => setLoading2(false)}
+              // onLoad={() => setLoading2(false)}
             />
           </div>
           <div className="w-full inline-flex items-center justify-between mt-[5px]">
@@ -56,7 +56,7 @@ const NewNFTs = (props: any) => {
                 alt=""
                 className="w-[20px] h-auto mr-[5px]"
                 priority={true}
-                onLoad={() => setLoading3(false)}
+                // onLoad={() => setLoading3(false)}
               />
               Kemoutyo
             </div>
@@ -72,7 +72,7 @@ const NewNFTs = (props: any) => {
                 alt=""
                 className="w-[18px] h-auto"
                 priority={true}
-                onLoad={() => setLoading4(false)}
+                // onLoad={() => setLoading4(false)}
               />
             </div>
           </div>
