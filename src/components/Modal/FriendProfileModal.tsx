@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useSettingModal } from "@/context/communitysetting";
+import { useSettingModal } from "@/providers/SettingModalProvider";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 const FriendProfileModal = () => {

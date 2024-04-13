@@ -12,7 +12,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const { data, error } = await resend.emails.send({
             from: 'onboarding@resend.dev',
             to: [email],
-            subject: "Welcome to Bipple",
+            subject: "Welcome to SOFT COQ INU",
             html: `<p>Your Otp Code is <strong>${otpCode}</strong>!</p>`,
         });
 

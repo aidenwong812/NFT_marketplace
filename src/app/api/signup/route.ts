@@ -24,7 +24,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     console.log(hashedPassword);
     console.log(phoneNumber);
     const payload = { email: email };
-    const token = jwt.sign( payload, "bipple", {expiresIn: "1h"} );
+    const token = jwt.sign( payload, "SOFT COQ INU", {expiresIn: "1h"} );
     try {
         const docRef = await addDoc(collection(db, "users"), {
             name: name || "",

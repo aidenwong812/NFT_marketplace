@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useSettingModal } from "@/context/communitysetting";
+import { useSettingModal } from "@/providers/SettingModalProvider";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 const NewCommunityModal = () => {

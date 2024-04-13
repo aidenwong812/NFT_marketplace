@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Provider from "@/components/provider";
+import SettingModalProvider from "@/providers/SettingModalProvider";
 import dynamic from "next/dynamic";
-import HomeLoader from "@/components/layout/Header/loader";
 import FooterLoader from "@/components/layout/Footer/loader";
-import CommunityListLoader from "@/components/layout/CommunityList/loader";
 import SiderLoader from "@/components/layout/Sider/loading";
 export const metadata: Metadata = {
-  title: "Bipple",
-  description: "Bipple chat",
+  title: "SOFT COQ INU",
+  description: "SOFT COQ INU",
 };
 import "./globals.css";
+import WalletProvider from "@/providers/WalletProvider";
 const Sider = dynamic(() => import("@/components/layout/Sider"), {
   ssr: false,
   loading: () => <SiderLoader />,
@@ -20,19 +18,6 @@ const Footer = dynamic(() => import("@/components/layout/Footer"), {
   ssr: false,
   loading: () => <FooterLoader />,
 });
-const CommunityList = dynamic(
-  () => import("@/components/layout/CommunityList"),
-  {
-    ssr: false,
-    loading: () => <CommunityListLoader />,
-  }
-);
-const CommunityProfileModal = dynamic(
-  () => import("@/components/Modal/CommunityProfileModal")
-);
-const CommunityUserModal = dynamic(
-  () => import("@/components/Modal/CommunityUserModal")
-);
 const FriendProfileModal = dynamic(
   () => import("@/components/Modal/FriendProfileModal")
 );
@@ -62,25 +47,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-ttfirs bg-cover bg-center bg-[url('/community/bg.svg')] -z-10 bg-[#121212] fixed left-0 right-0 top-0 bottom-0 flex flex-row">
-        <Provider>
-          <Sider />
-          <div className="flex-col flex w-full h-full">
-            <Header />
-            {children}
-            <Footer />
-          </div>
-          <CommunityProfileModal />
-          <CommunityUserModal />
-          <FriendProfileModal />
-          <UserSearchModal />
-          <NewCommunityModal />
-          <NewChannelModal />
-          <NewRoomModal />
-          <NftBuyModal />
-          <NftBuyConfirmModal />
-          <CallActionModal />
-          <NewGroupModal />
-        </Provider>
+        <SettingModalProvider>
+          <WalletProvider>
+            <Sider />
+            <div className="flex-col flex w-full h-full">
+              <Header />
+              {children}
+              <Footer />
+            </div>
+            <FriendProfileModal />
+            <UserSearchModal />
+            <NewCommunityModal />
+            <NewChannelModal />
+            <NewRoomModal />
+            <NftBuyModal />
+            <NftBuyConfirmModal />
+            <CallActionModal />
+            <NewGroupModal />
+          </WalletProvider>
+        </SettingModalProvider>
       </body>
     </html>
   );
