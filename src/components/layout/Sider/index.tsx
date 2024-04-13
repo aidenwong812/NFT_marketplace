@@ -24,6 +24,12 @@ const Sider = () => {
     setCloseButton(false);
   };
 
+  const handleOpenSiderBar = () => {
+    setSiderWidth(250);
+    const sidebar = document.querySelector(".resize-current") as HTMLElement;
+    sidebar.style.width = `${250}px`;
+  };
+
   useEffect(() => {
     const handle = document.querySelector(".resize-handle") as HTMLElement;
     const sidebar = document.querySelector(".resize-current") as HTMLElement;
@@ -87,7 +93,7 @@ const Sider = () => {
         ></div>
         <button
           className={`absolute right-[40px] top-[60px] ${
-            siderWidth > 250 ? "block" : "hidden"
+            siderWidth >= 250 ? "block" : "hidden"
           }`}
           onClick={() => handleCloseSiderBar()}
         >
@@ -99,16 +105,32 @@ const Sider = () => {
             className="w-[15px] h-auto"
           />
         </button>
+        <button
+          className={`absolute left-[55px] top-[50%] w-[50px] h-[50px] ${
+            siderWidth <= 80 ? "block" : "hidden"
+          } rounded-full`}
+          onClick={() => handleOpenSiderBar()}
+        >
+          <Image
+            src="/icon/right.svg"
+            width={0}
+            height={0}
+            alt="return"
+            className="w-[15px] h-auto"
+          />
+        </button>
         <div className="w-[80%] flex flex-col h-full">
           <div
             className={`mt-[65px]  ${
-              siderWidth > 250
+              siderWidth >= 250
                 ? "inline-flex ml-[20px] mb-[30px]"
                 : `flex justify-center mb-[40px]`
             }`}
           >
             <div
-              className={`h-auto ${siderWidth > 250 ? "w-[50px]" : "w-[40px]"}`}
+              className={`h-auto ${
+                siderWidth >= 250 ? "w-[50px]" : "w-[40px]"
+              } text-left`}
             >
               {/* {loading && (
                 <div className="w-full aspect-square bg-[#121212] rounded-[10px]"></div>
