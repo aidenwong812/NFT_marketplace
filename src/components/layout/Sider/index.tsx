@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import SiderList from "./sider"
+import SiderList from "./sider";
 const Sider = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -129,58 +129,6 @@ const Sider = () => {
 
           <div className="bottom-0">
             <ul className="text-white text-md mt-5">
-              <button
-                className={`mt-[35px] inline-flex w-full hover:opacity-70 transition-all duration-100 ${
-                  siderWidth > 250 ? "ml-[22px]" : "justify-center"
-                }`}
-                onClick={() => router.push("/setting")}
-              >
-                <div className="w-[40px]">
-                  {loading1 && <div className="w-[40px] h-[40px] bg-[#181818] rounded-full animate-pulse"></div>}
-                  <Image
-                    width={0}
-                    height={0}
-                    alt=""
-                    className={`w-[40px] h-auto ${loading1 && "hidden"}`}
-                    src="/avatar/1.svg"
-                    priority={true}
-                    onLoad={() => setLoading1(false)}
-                  />
-                </div>
-                {siderWidth > 250 ? (
-                  <div className={`ml-[10px] flex-row font-ttfirs`}>
-                    <div className="text-[#575757] text-[12px]">
-                      Good morning
-                    </div>
-                    <div className="text-[14px]">Yazid KHERRATI!</div>
-                  </div>
-                ) : null}
-              </button>
-              {siderWidth > 250 ? (
-                <div className="w-full flex justify-center mt-[15px]">
-                  <div className="w-[200px] h-[70px] bg-[#4F4F4F] bg-opacity-10 rounded-[20px] flex-col justify-center hover:opacity-70 transition-all duration-100">
-                    <p className="text-[#A9A9A9] text-[14px] mt-[7px] text-center">
-                      Level 5
-                    </p>
-                    <div className="w-full flex justify-center mt-[5px]">
-                      {loading2 && <div className="w-[150px] h-[30px] rounded-[10px] animate-pulse"></div>}
-                      <Image
-                        src="/sider/processBar.svg"
-                        width={0}
-                        height={0}
-                        alt={"logo"}
-                        priority={true}
-                        className={`w-[150px] h-auto ${loading2 && "hidden"}`}
-                        onLoad={() => {setLoading2(false)}}
-                      />
-                    </div>
-                    <p className="text-[#A9A9A9] text-[10px] mt-[7px] text-center">
-                      XP. 150/1500 XP
-                    </p>
-                  </div>
-                </div>
-              ) : null}
-
               <div className="w-full inline-flex items-center justify-center">
                 <button
                   className={`${
@@ -212,56 +160,10 @@ const Sider = () => {
                   ) : null}
                 </button>
               </div>
-              {siderWidth > 250 ? (
-                <button
-                  className="w-full inline-flex items-center justify-center text-[#FF5252] font-ttfirs font-thin text-[13px] mt-[30px] mb-[30px] hover:opacity-70"
-                  onClick={handleOpenLogout}
-                >
-                  Logout{" "}
-                  <Image
-                    className="ml-[10px] w-[14px] h-auto"
-                    src="/icon/logout.svg"
-                    width={0}
-                    height={0}
-                    alt={"logo"}
-                    priority={true}
-                  />
-                </button>
-              ) : null}
             </ul>
           </div>
         </div>
       </div>
-      {logout === true ? (
-        <>
-          <div
-            className="fixed right-0 left-0 top-0 bottom-0 z-10"
-            onClick={handleOpenLogout}
-          ></div>
-          <div className="w-[350px] fixed z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[220px] bg-[#181818] border border-[#393939] rounded-[20px]">
-            <p className="w-full flex justify-center text-[20px] font-bold mt-[30px]">
-              Logout
-            </p>
-            <p className="w-full flex justify-center mt-[20px]">
-              Are you sure, you want to log out?
-            </p>
-            <div className="w-full flex justify-center mt-[30px]">
-              <button
-                className="w-[120px] h-[45px] border border-[#53FAFB] rounded-full text-[#53FAFB] text-[14px] mr-[15px] hover:opacity-70"
-                onClick={handleOpenLogout}
-              >
-                Cancel
-              </button>
-              <button
-                className="w-[120px] h-[45px] bg-[#53FAFB] rounded-full text-black text-[14px] font-bold hover:opacity-70"
-                onClick={handleOpenLogout}
-              >
-                Logout
-              </button>
-            </div>
-          </div>
-        </>
-      ) : null}
     </>
   );
 };
