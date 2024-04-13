@@ -134,7 +134,7 @@ const Sider = () => {
                 <div className="w-full aspect-square bg-[#121212] rounded-[10px]"></div>
               )}
               <Image
-                src="/icon/new-logo.jpg"
+                src="/icon/logo.svg"
                 width={0}
                 height={0}
                 alt=""
