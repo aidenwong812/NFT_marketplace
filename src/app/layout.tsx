@@ -5,13 +5,16 @@ import dynamic from "next/dynamic";
 import HomeLoader from "@/components/layout/Header/loader";
 import FooterLoader from "@/components/layout/Footer/loader";
 import CommunityListLoader from "@/components/layout/CommunityList/loader";
-import SiderLoader from "@/components/layout/Sider/loading"
+import SiderLoader from "@/components/layout/Sider/loading";
 export const metadata: Metadata = {
   title: "Bipple",
   description: "Bipple chat",
 };
 import "./globals.css";
-const Sider = dynamic(() => import("@/components/layout/Sider"), {ssr: false, loading: () => <SiderLoader />});
+const Sider = dynamic(() => import("@/components/layout/Sider"), {
+  ssr: false,
+  loading: () => <SiderLoader />,
+});
 const Header = dynamic(() => import("@/components/layout/Header"));
 const Footer = dynamic(() => import("@/components/layout/Footer"), {
   ssr: false,
@@ -61,7 +64,6 @@ export default function RootLayout({
       <body className="font-ttfirs bg-cover bg-center bg-[url('/community/bg.svg')] -z-10 bg-[#121212] fixed left-0 right-0 top-0 bottom-0 flex flex-row">
         <Provider>
           <Sider />
-          <CommunityList />
           <div className="flex-col flex w-full h-full">
             <Header />
             {children}
