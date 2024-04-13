@@ -3,7 +3,8 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ImageComponent from "@/components/shared/ImageComponent/demo";
-import { useSettingModal } from "@/context/communitysetting";
+import { useSettingModal } from "@/providers/SettingModalProvider";
+
 const NFT = () => {
   const router = useRouter();
   const {nftBuyModal, setNftBuyModal, nftBuyConfirmModal, setNftBuyConfirmModal} = useSettingModal()
