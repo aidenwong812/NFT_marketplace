@@ -10,6 +10,8 @@
     "export": "next export"
   },
   "dependencies": {
+    "@solana/wallet-adapter-phantom": "^0.9.24",
+    "@solana/web3.js": "^1.91.4",
     "@types/bcrypt": "^5.0.2",
     "@types/firebase": "^3.2.1",
     "bcrypt": "^5.1.1",

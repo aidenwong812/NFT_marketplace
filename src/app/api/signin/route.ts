@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
             }
             if (userAuthenticated) {
                 const payload = { email: email };
-                const token = jwt.sign( payload, "bipple", {expiresIn: "1h"} );
+                const token = jwt.sign( payload, "SOFT COQ INU", {expiresIn: "1h"} );
                 return Response.json({ status: 200, msg: 'User validated', token: token });
 
             } else {

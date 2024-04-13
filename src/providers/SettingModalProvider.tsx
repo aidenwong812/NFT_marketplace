@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useContext, createContext, useEffect } from "react";
 const ModalContext = createContext<{
   communitySettingmodal: boolean;
@@ -55,7 +57,11 @@ const ModalContext = createContext<{
   setNewGroupModal: () => {},
 });
 export const useSettingModal = () => {
-  return useContext(ModalContext);
+  const context = useContext(ModalContext)
+  if (!context) {
+    throw new Error("useSettingModal must be used within a SettingModalProvider")
+  }
+  return context
 };
 
 const SettingModalProvider = ({ children }: { children: React.ReactNode }) => {

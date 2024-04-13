@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { useSettingModal } from "@/context/communitysetting";
+import { useSettingModal } from "@/providers/SettingModalProvider";
 import { usePathname } from "next/navigation";
 const NftBuyModal = (props: any) => {
   const { nftBuyModal, setNftBuyModal } = useSettingModal();

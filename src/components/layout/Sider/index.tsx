@@ -1,34 +1,37 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
+import { useWallet } from "@/providers/WalletProvider";
+import formatAddress from "@/lib/formatAddress";
 import SiderList from "./sider";
+
 const Sider = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const [siderWidth, setSiderWidth] = useState<number>(300);
-  const [logout, setLogout] = useState<boolean>(false);
-  const [loading1, setLoading1] = useState<boolean>(false);
-  const [loading2, setLoading2] = useState<boolean>(false);
-  const [closeButton, setCloseButton] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [transition, setTransition] = useState<boolean>(true);
-  const handleOpenLogout = () => {
-    setLogout(!logout);
-  };
-  // const [loading, setLoading] = useState<boolean>(true);
+
+  const { connStatus, solanaConnect, walletID } = useWallet()
+
   const handleCloseSiderBar = () => {
     setSiderWidth(80);
     const sidebar = document.querySelector(".resize-current") as HTMLElement;
     sidebar.style.width = `${80}px`;
-    setCloseButton(false);
   };
 
   const handleOpenSiderBar = () => {
-    setSiderWidth(250);
+    setSiderWidth(300);
     const sidebar = document.querySelector(".resize-current") as HTMLElement;
-    sidebar.style.width = `${250}px`;
+    sidebar.style.width = `${300}px`;
   };
+
+  const handleClick = () => {
+    if (!connStatus) {
+      solanaConnect()
+    }
+  }
 
   useEffect(() => {
     const handle = document.querySelector(".resize-handle") as HTMLElement;
@@ -69,16 +72,15 @@ const Sider = () => {
     });
 
     return () => {
-      document.removeEventListener("mousemove", () => {});
-      document.removeEventListener("mouseup", () => {});
+      document.removeEventListener("mousemove", () => { });
+      document.removeEventListener("mouseup", () => { });
     };
   }, []);
   return (
     <>
       <div
-        className={`desktop:flex-none prevent-select desktop:flex hidden justify-center bg-[#171717] h-full relative resize-current w-[300px] overflow-auto ${
-          transition ? "transition-[width] duration-200" : "transition-none"
-        }`}
+        className={`desktop:flex-none prevent-select desktop:flex hidden justify-center bg-[#171717] h-full relative resize-current w-[300px] overflow-auto ${transition ? "transition-[width] duration-200" : "transition-none"
+          }`}
       >
         <div
           className="resize-handle"
@@ -92,9 +94,8 @@ const Sider = () => {
           }}
         ></div>
         <button
-          className={`absolute right-[40px] top-[60px] ${
-            siderWidth >= 250 ? "block" : "hidden"
-          }`}
+          className={`absolute right-[40px] top-[60px] ${siderWidth >= 250 ? "block" : "hidden"
+            }`}
           onClick={() => handleCloseSiderBar()}
         >
           <Image
@@ -106,9 +107,8 @@ const Sider = () => {
           />
         </button>
         <button
-          className={`absolute left-[55px] top-[50%] w-[50px] h-[50px] ${
-            siderWidth <= 80 ? "block" : "hidden"
-          } rounded-full`}
+          className={`absolute left-[55px] top-[50%] w-[50px] h-[50px] ${siderWidth <= 80 ? "block" : "hidden"
+            } rounded-full`}
           onClick={() => handleOpenSiderBar()}
         >
           <Image
@@ -121,44 +121,42 @@ const Sider = () => {
         </button>
         <div className="w-[80%] flex flex-col h-full">
           <div
-            className={`mt-[65px]  ${
-              siderWidth >= 250
-                ? "inline-flex ml-[20px] mb-[30px]"
-                : `flex justify-center mb-[40px]`
-            }`}
+            className={`mt-[65px]  ${siderWidth >= 250
+              ? "inline-flex ml-[20px] mb-[30px]"
+              : `flex justify-center mb-[40px]`
+              }`}
           >
             <div
-              className={`h-auto ${
-                siderWidth >= 250 ? "w-[50px]" : "w-[40px]"
-              } text-left`}
+              className={`h-auto ${siderWidth >= 250 ? "w-[50px]" : "w-[40px]"
+                } text-left`}
             >
-              {/* {loading && (
+              {loading && (
                 <div className="w-full aspect-square bg-[#121212] rounded-[10px]"></div>
-              )} */}
-              <img
+              )}
+              <Image
                 src="/icon/new-logo.jpg"
                 width={0}
                 height={0}
                 alt=""
                 className={`w-full h-auto`}
-                // priority={true}
-                // onLoad={() => setLoading(false)}
+                priority={true}
+                onLoad={() => setLoading(false)}
               />
             </div>
           </div>
 
           <SiderList pathname={pathname} siderWidth={siderWidth} />
 
-          <div className="bottom-0">
-            <ul className="text-white text-md mt-5">
+          <div className="mb-[40px]">
+            <ul className="text-white text-md">
               <div className="w-full inline-flex items-center justify-center">
                 <button
-                  className={`${
-                    siderWidth > 250 ? "w-[200px]" : "px-[7px] mb-[20px]"
-                  } h-[40px] rounded-full border border-[#535353] inline-flex items-center justify-center font-ttfirs text-[12px] mt-[15px] hover:opacity-70 transition-all duration-100`}
+                  className={`${siderWidth > 250 ? "w-[200px]" : "px-[7px]"
+                    } h-[40px] rounded-full border border-[#535353] inline-flex items-center justify-center font-ttfirs text-[12px] hover:opacity-70 transition-all duration-100`}
+                  onClick={handleClick}
                 >
                   <Image
-                    src="/icon/metamask.svg"
+                    src="/icon/phantom.svg"
                     width={0}
                     height={0}
                     alt={"logo"}
@@ -168,16 +166,22 @@ const Sider = () => {
                   {siderWidth > 250 ? (
                     <>
                       <div className="ml-[7px] mr-[7px]">
-                        920xUhjdhbw...wdfe
+                        {
+                          connStatus ? formatAddress(walletID) : "Connect Wallet"
+                        }
                       </div>
-                      <Image
-                        src="/icon/copy.svg"
-                        width={0}
-                        height={0}
-                        alt={"logo"}
-                        priority={true}
-                        className="w-[15px] h-auto"
-                      />
+                      {
+                        connStatus && (
+                          <Image
+                            src="/icon/copy.svg"
+                            width={0}
+                            height={0}
+                            alt={"logo"}
+                            priority={true}
+                            className="w-[15px] h-auto"
+                          />
+                        )
+                      }
                     </>
                   ) : null}
                 </button>
