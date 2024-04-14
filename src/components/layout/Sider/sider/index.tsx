@@ -13,10 +13,34 @@ const SiderList1 = (props: any) => {
           siderWidth={props.siderWidth}
         />
         <ListComponent
+          _name="Create NFT"
+          _icon="/icon/create_icon_white.svg"
+          _clickedIcon="/icon/create_icon_blue.svg"
+          _url="/create-nft"
+          pathname={props.pathname}
+          siderWidth={props.siderWidth}
+        />
+        <ListComponent
           _name="Marketplace"
           _icon="/icon/marketplace.svg"
           _clickedIcon="/icon/marketplace_blue.svg"
           _url="/marketplace"
+          pathname={props.pathname}
+          siderWidth={props.siderWidth}
+        />
+        <ListComponent
+          _name="Transfer"
+          _icon="/icon/transfer_white.svg"
+          _clickedIcon="/icon/transfer_blue.svg"
+          _url="/transfer"
+          pathname={props.pathname}
+          siderWidth={props.siderWidth}
+        />
+        <ListComponent
+          _name="My Listings"
+          _icon="/icon/my_listings_white.svg"
+          _clickedIcon="/icon/my_listings_blue.svg"
+          _url="/my-listings"
           pathname={props.pathname}
           siderWidth={props.siderWidth}
         />
