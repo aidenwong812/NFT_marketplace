@@ -30,11 +30,11 @@ const NewNFTs = (props: any) => {
           width={0}
           height={0}
           alt=""
-          className="w-[200px] h-auto"
+          className="w-[200px] h-auto rounded-[18px]"
           // priority={true}
           // onLoad={() => setLoading1(false)}
         />
-        <div className="w-full h-[40%] bg-black absolute bottom-0 rounded-[18px] bg-opacity-25 backdrop-blur-[10px] flex-row px-[15px] py-[15px]">
+        <div className="w-full h-[50%] bg-black absolute bottom-0 rounded-[18px] bg-opacity-25 backdrop-blur-[10px] flex-row px-[15px] py-[15px]">
           <div className="w-full inline-flex justify-between items-center">
             <p>Supernova ITALY †</p>
             <Image
