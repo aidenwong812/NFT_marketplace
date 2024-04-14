@@ -1,21 +1,47 @@
 "use client";
-import React from "react";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ImageComponent from "@/components/shared/ImageComponent/demo";
-import { useRouter, usePathname } from "next/navigation";
-const NFTs = [
-  { image: "/nfts/1.svg", id: 1 },
-  { image: "/nfts/2.svg", id: 2 },
-  { image: "/nfts/3.svg", id: 3 },
-  { image: "/nfts/2.svg", id: 4 },
-  { image: "/nfts/2.svg", id: 5 },
-  { image: "/nfts/3.svg", id: 6 },
-  { image: "/nfts/4.svg", id: 7 },
-  { image: "/nfts/3.svg", id: 8 },
-];
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useWallet } from "@/providers/WalletProvider";
+// const NFTs = [
+//   { image: "/nfts/1.svg", id: 1 },
+//   { image: "/nfts/2.svg", id: 2 },
+//   { image: "/nfts/3.svg", id: 3 },
+//   { image: "/nfts/2.svg", id: 4 },
+//   { image: "/nfts/2.svg", id: 5 },
+//   { image: "/nfts/3.svg", id: 6 },
+//   { image: "/nfts/4.svg", id: 7 },
+//   { image: "/nfts/3.svg", id: 8 },
+// ];
 const Marketplace = () => {
   const router = useRouter();
-  const pathName = usePathname();
+  const { network, walletID } = useWallet()
+
+  const [NFTs, setNFTs] = useState([])
+
+  useEffect(() => {
+    if (walletID) {
+      const endpoint = "https://api.shyft.to/sol/v1/nft/read_all"
+
+      axios.get(endpoint, {
+        headers: {
+          "x-api-key": "mMQyQQu1l0Tbz-Wr",
+        },
+        params: {
+          network: network,
+          address: walletID,
+        }
+      }).then(response => {
+        const nfts = response.data.result
+        setNFTs(nfts)
+      })
+    }
+  }, [walletID])
+  console.log(NFTs)
+
   return (
     <>
       <div className="w-full h-full bg-[#121212]">
@@ -51,7 +77,7 @@ const Marketplace = () => {
                   onClick={() => router.push(`/nfts/${item.id}`)}
                   key={index}
                 >
-                  <ImageComponent src={item.image}/>
+                  <ImageComponent src={item.image} />
                 </button>
               ))}
             </div>
