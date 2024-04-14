@@ -58,8 +58,6 @@ const NFT = () => {
         const transaction = res.data.result.encoded_transaction
         const mint = res.data.result.mint
         const ret_result = await signAndConfirmTransaction(network, transaction)
-        console.log("mint => ", mint)
-        console.log("ret_result => ", ret_result)
       }
     })
   }
