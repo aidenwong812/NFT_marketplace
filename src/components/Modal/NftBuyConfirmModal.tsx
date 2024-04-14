@@ -30,7 +30,7 @@ const NftBuyConfirmModal = (props: any) => {
               />
             </button>
             <p className="w-full text-center text-[14px] mt-[150px]">
-              Are you sure you want to buy <br /> from [Community Name] for
+              Are you sure you want to buy <br /> from SOFT COQ INU for
               12.02 SOL?
             </p>
             <button className="w-full h-[45px] rounded-full border-[1px] border-[#686868] inline-flex items-center px-[30px] justify-between mt-[100px]">

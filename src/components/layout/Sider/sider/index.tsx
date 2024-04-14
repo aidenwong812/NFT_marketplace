@@ -5,7 +5,7 @@ const SiderList1 = (props: any) => {
     <>
       <ul className="text-[#D4D4D4] text-md mt-[10px] h-full overflow-auto">
         <ListComponent
-          _name="NFTs"
+          _name="My NFTs"
           _icon="/icon/NFT.svg"
           _clickedIcon="/icon/NFT_blue.svg"
           _url="/nfts"
