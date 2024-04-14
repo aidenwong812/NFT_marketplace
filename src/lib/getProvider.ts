@@ -1,6 +1,6 @@
 const getProvider = () => {
   if ('phantom' in window) {
-    const provider = window.phantom?.solana
+    const provider = (window as any).phantom?.solana
 
     if (provider?.isPhantom) {
       return provider;

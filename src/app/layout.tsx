@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 };
 import "./globals.css";
 import WalletProvider from "@/providers/WalletProvider";
+
 const Sider = dynamic(() => import("@/components/layout/Sider"), {
   ssr: false,
   loading: () => <SiderLoader />,
@@ -34,6 +35,9 @@ const NewRoomModal = dynamic(() => import("@/components/Modal/NewRoomModal"));
 const NftBuyModal = dynamic(() => import("@/components/Modal/NftBuyModal"));
 const NftBuyConfirmModal = dynamic(
   () => import("@/components/Modal/NftBuyConfirmModal")
+);
+const NftListModal = dynamic(
+  () => import("@/components/Modal/NftListModal")
 );
 const CallActionModal = dynamic(
   () => import("@/components/Modal/CallActionModal")
@@ -62,6 +66,7 @@ export default function RootLayout({
             <NewRoomModal />
             <NftBuyModal />
             <NftBuyConfirmModal />
+            <NftListModal />
             <CallActionModal />
             <NewGroupModal />
           </WalletProvider>
