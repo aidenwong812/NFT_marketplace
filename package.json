@@ -14,6 +14,7 @@
     "@solana/web3.js": "^1.91.4",
     "@types/bcrypt": "^5.0.2",
     "@types/firebase": "^3.2.1",
+    "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "firebase": "^10.10.0",

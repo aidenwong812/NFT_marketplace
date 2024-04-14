@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
-import cluster from "cluster";
 
 const useWalletData = () => {
   const [network, setNetwork] = useState("devnet");
   const [walletID, setWalletID] = useState("");
   const [connStatus, setConnStatus] = useState(false);
+
+  useEffect(() => {
+    solanaConnect()
+  }, [])
 
   const solanaConnect = async () => {
     const { solana } = window as any;

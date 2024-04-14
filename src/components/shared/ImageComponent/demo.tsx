@@ -14,7 +14,7 @@ const ImageComponent = (props: any) => {
         width={0}
         height={0}
         priority={true}
-        className={`w-full ${props.height ? `h-${props.height}px` : "h-auto"}  duration-700 opacity-100 ${
+        className={`w-full ${props.height ? `h-${props.height}px` : "h-auto"} rounded-[24px] duration-700 opacity-100 ${
           isLoading && "hidden"
         }`}
         onLoad={() => {setLoading(false)}}

@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import { useSettingModal } from "@/providers/SettingModalProvider";
 const BestCollection = dynamic(
   () => import("@/components/marketplace/BestCollection")
 );
@@ -93,7 +94,12 @@ const Page = () => {
       <div className="w-full h-full bg-[#121212] mobile:px-[50px] px-[20px] pt-[30px] pb-[50px] overflow-auto prevent-select">
         <div className="w-full h-full relative overflow-auto flex flex-col gap-[20px]">
           <div>
-            <p className="text-[20px]">Best & Trends Collections</p>
+            <div className="flex items-center justify-between">
+              <p className="text-[20px]">Best & Trends Collections</p>
+              <button className="w-[130px] h-[45px] rounded-full border border-[#53FAFB] text-[#53FAFB] mr-[10px] hover:bg-[#53FAFB] hover:text-black" onClick={() => router.push("/nfts/new")}>
+                New NFT
+              </button>
+            </div>
             <div className="w-full h-[200px] overflow-auto">
               <div className="mt-[20px] w-full overflow-auto inline-flex gap-[15px] absolute">
                 {bestCollections.map((item, index) => (
