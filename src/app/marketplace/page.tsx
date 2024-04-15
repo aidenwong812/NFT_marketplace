@@ -1,123 +1,62 @@
 "use client";
-import React from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { useSettingModal } from "@/providers/SettingModalProvider";
-const BestCollection = dynamic(
-  () => import("@/components/marketplace/BestCollection")
-);
+import { useWallet } from "@/providers/WalletProvider";
+import axios from "axios";
+
 const NewNFTS = dynamic(() => import("@/components/marketplace/NewNFTs"));
 const Page = () => {
-  const router = useRouter();
-  const bestCollections = [
-    { link: "/marketplace/1.svg", avatar: "/avatar/18.svg", id: 1 },
-    { link: "/marketplace/2.svg", avatar: "/avatar/18.svg", id: 2 },
-    { link: "/marketplace/3.svg", avatar: "/avatar/18.svg", id: 3 },
-    { link: "/marketplace/1.svg", avatar: "/avatar/18.svg", id: 4 },
-    { link: "/marketplace/2.svg", avatar: "/avatar/18.svg", id: 5 },
-    { link: "/marketplace/3.svg", avatar: "/avatar/18.svg", id: 6 },
-    { link: "/marketplace/1.svg", avatar: "/avatar/18.svg", id: 7 },
-    { link: "/marketplace/2.svg", avatar: "/avatar/18.svg", id: 8 },
-    { link: "/marketplace/3.svg", avatar: "/avatar/18.svg", id: 9 },
-    { link: "/marketplace/1.svg", avatar: "/avatar/18.svg", id: 10 },
-    { link: "/marketplace/2.svg", avatar: "/avatar/18.svg", id: 11 },
-  ];
-  const explorer = [
-    {
-      link: "/chicken/6.jpg",
-      avatar: "/avatar/2.svg",
-      user: "/avatar/17.svg",
-      id: 1,
-    },
-    {
-      link: "/chicken/1.jpg",
-      avatar: "/avatar/2.svg",
-      user: "/avatar/17.svg",
-      id: 2,
-    },
-    {
-      link: "/chicken/2.jpg",
-      avatar: "/avatar/2.svg",
-      user: "/avatar/17.svg",
-      id: 3,
-    },
-    {
-      link: "/chicken/3.jpg",
-      avatar: "/avatar/2.svg",
-      user: "/avatar/17.svg",
-      id: 4,
-    },
-    {
-      link: "/chicken/4.jpg",
-      avatar: "/avatar/2.svg",
-      user: "/avatar/17.svg",
-      id: 5,
-    },
-    {
-      link: "/chicken/5.jpg",
-      avatar: "/avatar/2.svg",
-      user: "/avatar/17.svg",
-      id: 6,
-    },
-    {
-      link: "/chicken/6.jpg",
-      avatar: "/avatar/2.svg",
-      user: "/avatar/17.svg",
-      id: 7,
-    },
-    {
-      link: "/chicken/1.jpg",
-      avatar: "/avatar/2.svg",
-      user: "/avatar/17.svg",
-      id: 8,
-    },
-    {
-      link: "/chicken/2.jpg",
-      avatar: "/avatar/2.svg",
-      user: "/avatar/17.svg",
-      id: 9,
-    },
-  ];
-  const newNfts = [
-    { logo: "/marketplace/logo.svg" },
-    { logo: "/marketplace/logo.svg" },
-    { logo: "/marketplace/logo.svg" },
-    { logo: "/marketplace/logo.svg" },
-    { logo: "/marketplace/logo.svg" },
-    { logo: "/marketplace/logo.svg" },
-    { logo: "/marketplace/logo.svg" },
-    { logo: "/marketplace/logo.svg" },
-  ];
+  const { network, walletID } = useWallet()
+
+  const [nfts, setNfts] = useState([]);
+
+  useEffect(() => {
+    const xKey = process.env.NEXT_PUBLIC_API_KEY.toString()
+    const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT
+    const marketplaceAddress = process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS
+
+    const nftUrl = `${endPoint}marketplace/active_listings?network=${network}&marketplace_address=${marketplaceAddress}`;
+
+    axios.get(nftUrl, {
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": xKey,
+      }
+    }).then((res) => {
+      if (res.data.success === true) {
+        setNfts(res.data.result);
+      }
+      else {
+        setNfts([]);
+      }
+    })
+      // Catch errors if any
+      .catch((err) => {
+        console.warn(err);
+        setNfts([]);
+      });
+  }, [walletID])
+
   return (
     <>
       <div className="w-full h-full bg-[#121212] mobile:px-[50px] px-[20px] pt-[30px] pb-[50px] overflow-auto prevent-select">
         <div className="w-full h-full relative overflow-auto flex flex-col gap-[20px]">
-          <div>
-            <div className="flex items-center justify-between">
-              <p className="text-[20px]">Best & Trends Collections</p>
-            </div>
-            <div className="w-full h-[200px] overflow-auto">
-              <div className="mt-[20px] w-full overflow-auto inline-flex gap-[15px] absolute">
-                {bestCollections.map((item, index) => (
-                  <div key={index}>
-                    <BestCollection item={item} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div>
-            <p className="text-[20px]">Explore New NFTs</p>
-            <div className="w-full mt-[20px] relative h-[250px] overflow-auto">
-              <div className="w-full overflow-auto inline-flex gap-[10px] absolute">
-                {explorer.map((item, index) => (
-                  <div key={index}>
-                    <NewNFTS item={item} />
-                  </div>
-                ))}
-              </div>
-            </div>
+          <p className="text-[25px]">Explore NFTs</p>
+          <div className="w-full h-full mt-[20px] relative overflow-auto">
+            {
+              nfts.length > 0 ? (
+                <div className="w-full overflow-auto grid grid-cols-4 gap-[30px] absolute">
+                  {nfts.map((item, index) => (
+                    <div key={index}>
+                      <NewNFTS item={item} />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="w-full h-full flex justify-center items-center text-[25px]">No NFTs</p>
+              )
+            }
           </div>
         </div>
       </div>
