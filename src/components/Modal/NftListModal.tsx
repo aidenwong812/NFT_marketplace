@@ -19,16 +19,21 @@ const NftListModal = () => {
   const [price, setPrice] = useState(0)
 
   const handleList = () => {
-    const nftUrl = `${endPoint}marketplace/create`;
+    const nftUrl = `${endPoint}marketplace/list`;
+
     const data = {
       network: network,
-      fee_recipient: walletID,
-      creator_wallet: walletID,
+      marketplace_address: marketplaceAddress,
+      nft_address: selectedNFT,
+      price: Number(price),
+      seller_wallet: walletID,
     }
+
     axios.post(nftUrl, data, {
       headers: {
+        "Content-Type": "application/json",
         "x-api-key": xKey,
-      },
+      }
     })
       // Handle the response from backend here
       .then(async (res) => {
@@ -43,38 +48,13 @@ const NftListModal = () => {
         }
 
       })
-    // axios.post(nftUrl, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "x-api-key": xKey,
-    //   },
-    //   data: {
-    //     network: network,
-    //     marketplace_address: marketplaceAddress,
-    //     nft_address: selectedNFT,
-    //     price: Number(price),
-    //     seller_wallet: walletID,
-    //   }
-    // })
-    //   // Handle the response from backend here
-    //   .then(async (res) => {
-    //     console.log(res.data);
-    //     if (res.data.success === true) {
-    //       const transaction = res.data.result.encoded_transaction;
-    //       const ret_result = await signAndConfirmTransaction(network, transaction);
-    //       console.log(ret_result);
-    //     }
-    //     else {
-    //       //setShowLister(false);
-    //     }
-
-    //   })
-    //   // Catch errors if any
-    //   .catch((err) => {
-    //     console.warn(err);
-    //     // navigate(`/my-listings`);
-    //     //setShowLister(false);
-    //   });
+      // Catch errors if any
+      .catch((err) => {
+        console.warn(err);
+        // navigate(`/my-listings`);
+        //setShowLister(false);
+      });
+    setPrice(0)
     setNftListModal(false)
   }
 

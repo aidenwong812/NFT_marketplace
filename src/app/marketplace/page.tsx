@@ -96,12 +96,6 @@ const Page = () => {
           <div>
             <div className="flex items-center justify-between">
               <p className="text-[20px]">Best & Trends Collections</p>
-              <button
-                className="w-[130px] h-[45px] rounded-full border border-[#53FAFB] text-[#53FAFB] mr-[10px] hover:bg-[#53FAFB] hover:text-black"
-                onClick={() => router.push("/create-nft")}
-              >
-                New NFT
-              </button>
             </div>
             <div className="w-full h-[200px] overflow-auto">
               <div className="mt-[20px] w-full overflow-auto inline-flex gap-[15px] absolute">
