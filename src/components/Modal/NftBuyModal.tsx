@@ -1,11 +1,19 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { useSettingModal } from "@/providers/SettingModalProvider";
 import { usePathname } from "next/navigation";
-const NftBuyModal = (props: any) => {
-  const { nftBuyModal, setNftBuyModal } = useSettingModal();
+import { useSettingModal } from "@/providers/SettingModalProvider";
+import { useWallet } from "@/providers/WalletProvider";
+
+const NftBuyModal = () => {
   const pathName = usePathname();
+  const { nftBuyModal, setNftBuyModal } = useSettingModal();
+  const { network, selectedNFT, walletID } = useWallet()
+
+  const xKey = process.env.NEXT_PUBLIC_API_KEY.toString()
+  const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT
+  const marketplaceAddress = process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS
+  
   return (
     <>
       <div
@@ -40,7 +48,7 @@ const NftBuyModal = (props: any) => {
               </div>
             </div>
             <p className="w-full text-center text-[14px] mt-[100px]">
-              Are you sure you want to buy <br /> from [Community Name] for
+              Are you sure you want to buy <br /> from SOFT COQ INU for
               12.02 SOL?
             </p>
             <button

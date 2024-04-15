@@ -22,6 +22,8 @@ const ModalContext = createContext<{
   setNftBuyModal: React.Dispatch<React.SetStateAction<boolean>>;
   nftBuyConfirmModal: boolean;
   setNftBuyConfirmModal: React.Dispatch<React.SetStateAction<boolean>>;
+  nftListModal: boolean;
+  setNftListModal: React.Dispatch<React.SetStateAction<boolean>>;
   callActionModal: boolean;
   setCallActionModal: React.Dispatch<React.SetStateAction<boolean>>;
   calling: boolean;
@@ -30,31 +32,33 @@ const ModalContext = createContext<{
   setNewGroupModal: React.Dispatch<React.SetStateAction<boolean>>;
 }>({
   communitySettingmodal: false,
-  setCommunitySettingmodal: () => {},
+  setCommunitySettingmodal: () => { },
   communityProfileModal: false,
-  setCommunityProfileModal: () => {},
+  setCommunityProfileModal: () => { },
   communityMemberProfileModal: false,
-  setCommunityMemberProfileModal: () => {},
+  setCommunityMemberProfileModal: () => { },
   friendProfileModal: false,
-  setFriendProfileModal: () => {},
+  setFriendProfileModal: () => { },
   userSearchModal: false,
-  setUserSearchModal: () => {},
+  setUserSearchModal: () => { },
   newCommunityModal: false,
-  setNewCommunityModal: () => {},
+  setNewCommunityModal: () => { },
   newChannelModal: false,
-  setNewChannelModal: () => {},
+  setNewChannelModal: () => { },
   newRoomModal: false,
-  setNewRoomModal: () => {},
+  setNewRoomModal: () => { },
   nftBuyModal: false,
-  setNftBuyModal: () => {},
+  setNftBuyModal: () => { },
   nftBuyConfirmModal: false,
-  setNftBuyConfirmModal: () => {},
+  setNftBuyConfirmModal: () => { },
+  nftListModal: false,
+  setNftListModal: () => { },
   callActionModal: false,
-  setCallActionModal: () => {},
+  setCallActionModal: () => { },
   calling: false,
-  setCalling: () => {},
+  setCalling: () => { },
   newGroupModal: false,
-  setNewGroupModal: () => {},
+  setNewGroupModal: () => { },
 });
 export const useSettingModal = () => {
   const context = useContext(ModalContext)
@@ -80,10 +84,11 @@ const SettingModalProvider = ({ children }: { children: React.ReactNode }) => {
   const [newRoomModal, setNewRoomModal] = React.useState<boolean>(false);
   const [nftBuyModal, setNftBuyModal] = React.useState<boolean>(false);
   const [nftBuyConfirmModal, setNftBuyConfirmModal] = React.useState<boolean>(false);
+  const [nftListModal, setNftListModal] = React.useState<boolean>(false);
   const [callActionModal, setCallActionModal] = React.useState<boolean>(false);
   const [calling, setCalling] = React.useState<boolean>(false);
   const [newGroupModal, setNewGroupModal] = React.useState<boolean>(false);
-  
+
   const _functions: Record<number, React.Dispatch<React.SetStateAction<boolean>>> = {
     1: setCommunitySettingmodal,
     2: setCommunityProfileModal,
@@ -97,9 +102,10 @@ const SettingModalProvider = ({ children }: { children: React.ReactNode }) => {
     10: setNftBuyConfirmModal,
     11: setCallActionModal,
     12: setCalling,
-    13: setNewGroupModal
+    13: setNewGroupModal,
+    14: setNftListModal,
   }
-  const initialValue = [1,2,3,4,5,6,7,8,9,10,11,12,13]
+  const initialValue = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
   const handleformat = (index: number) => {
     const functionArray = initialValue.filter((item: number) => item !== index);
     functionArray.map((item, index) => {
@@ -107,43 +113,46 @@ const SettingModalProvider = ({ children }: { children: React.ReactNode }) => {
     })
   }
   useEffect(() => {
-    if(communitySettingmodal) handleformat(1);
+    if (communitySettingmodal) handleformat(1);
   }, [communitySettingmodal]);
   useEffect(() => {
-    if(communityProfileModal) handleformat(2);
+    if (communityProfileModal) handleformat(2);
   }, [communityProfileModal]);
   useEffect(() => {
-    if(communityMemberProfileModal) handleformat(3);
+    if (communityMemberProfileModal) handleformat(3);
   }, [communityMemberProfileModal]);
   useEffect(() => {
-    if(friendProfileModal) handleformat(4);
+    if (friendProfileModal) handleformat(4);
   }, [friendProfileModal]);
   useEffect(() => {
-    if(userSearchModal) handleformat(5);
+    if (userSearchModal) handleformat(5);
   }, [userSearchModal]);
   useEffect(() => {
-    if(newChannelModal) handleformat(6);
+    if (newChannelModal) handleformat(6);
   }, [newChannelModal]);
   useEffect(() => {
-    if(newCommunityModal) handleformat(7);
+    if (newCommunityModal) handleformat(7);
   }, [newCommunityModal]);
   useEffect(() => {
-    if(newRoomModal) handleformat(8);
+    if (newRoomModal) handleformat(8);
   }, [newRoomModal]);
   useEffect(() => {
-    if(nftBuyModal) handleformat(9);
+    if (nftBuyModal) handleformat(9);
   }, [nftBuyModal]);
   useEffect(() => {
-    if(nftBuyConfirmModal) handleformat(10);
+    if (nftBuyConfirmModal) handleformat(10);
   }, [nftBuyConfirmModal]);
   useEffect(() => {
-    if(callActionModal) handleformat(11);
+    if (nftListModal) handleformat(14);
+  }, [nftListModal]);
+  useEffect(() => {
+    if (callActionModal) handleformat(11);
   }, [callActionModal]);
   useEffect(() => {
-    if(calling) handleformat(12);
+    if (calling) handleformat(12);
   }, [calling]);
   useEffect(() => {
-    if(newGroupModal) handleformat(13);
+    if (newGroupModal) handleformat(13);
   }, [newGroupModal]);
   return (
     <ModalContext.Provider
@@ -168,6 +177,8 @@ const SettingModalProvider = ({ children }: { children: React.ReactNode }) => {
         setNftBuyModal,
         nftBuyConfirmModal,
         setNftBuyConfirmModal,
+        nftListModal,
+        setNftListModal,
         callActionModal,
         setCallActionModal,
         calling,

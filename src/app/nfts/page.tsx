@@ -2,45 +2,42 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import ImageComponent from "@/components/shared/ImageComponent/demo";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useWallet } from "@/providers/WalletProvider";
-// const NFTs = [
-//   { image: "/nfts/1.svg", id: 1 },
-//   { image: "/nfts/2.svg", id: 2 },
-//   { image: "/nfts/3.svg", id: 3 },
-//   { image: "/nfts/2.svg", id: 4 },
-//   { image: "/nfts/2.svg", id: 5 },
-//   { image: "/nfts/3.svg", id: 6 },
-//   { image: "/nfts/4.svg", id: 7 },
-//   { image: "/nfts/3.svg", id: 8 },
-// ];
+
 const Marketplace = () => {
   const router = useRouter();
   const { network, walletID } = useWallet()
+  const xKey = process.env.NEXT_PUBLIC_API_KEY.toString()
+  const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT
 
   const [NFTs, setNFTs] = useState([])
 
   useEffect(() => {
     if (walletID) {
-      const endpoint = "https://api.shyft.to/sol/v1/nft/read_all"
+      const endpoint = `${endPoint}nft/read_all`
 
       axios.get(endpoint, {
         headers: {
-          "x-api-key": "mMQyQQu1l0Tbz-Wr",
+          "x-api-key": xKey,
         },
         params: {
           network: network,
           address: walletID,
         }
-      }).then(response => {
-        const nfts = response.data.result
-        setNFTs(nfts)
+      }).then(res => {
+        if (res.data.success === true) {
+          setNFTs(res.data.result)
+        }
+        else {
+          setNFTs([])
+        }
+      }).catch(err => {
+        setNFTs([])
       })
     }
   }, [walletID])
-  console.log(NFTs)
 
   return (
     <>
@@ -72,12 +69,17 @@ const Marketplace = () => {
 
           <div className="w-full h-full mt-[30px] mb-[30px] overflow-auto relative">
             <div className="w-full flex-none grid grid-cols-4 gap-[20px] overflow-auto absolute max-h-full">
-              {NFTs.map((item, index) => (
+              {NFTs.map(nft => (
                 <button
-                  onClick={() => router.push(`/nfts/${item.id}`)}
-                  key={index}
+                  onClick={() => router.push(`/nfts/${nft.mint}`)}
+                  key={nft.mint}
+                  className="relative"
                 >
-                  <ImageComponent src={item.image} />
+                  <img
+                    src={nft.cached_image_uri}
+                    alt="nft_image"
+                    className="rounded-[18px]"
+                  />
                 </button>
               ))}
             </div>

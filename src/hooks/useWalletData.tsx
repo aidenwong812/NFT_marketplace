@@ -6,6 +6,7 @@ const useWalletData = () => {
   const [network, setNetwork] = useState("devnet");
   const [walletID, setWalletID] = useState("");
   const [connStatus, setConnStatus] = useState(false);
+  const [selectedNFT, setSelectedNFT] = useState({});
 
   useEffect(() => {
     solanaConnect()
@@ -46,6 +47,8 @@ const useWalletData = () => {
     connStatus,
     setConnStatus,
     solanaConnect,
+    selectedNFT,
+    setSelectedNFT,
   }
 }
 
