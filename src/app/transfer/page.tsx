@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useWallet } from "@/providers/WalletProvider";
+import { toast } from "react-toastify";
 
 const Marketplace = () => {
   const router = useRouter();
@@ -36,6 +37,7 @@ const Marketplace = () => {
           }
         })
         .catch((err) => {
+          toast.error(err.response.data.message);
           setNFTs([]);
         });
     }

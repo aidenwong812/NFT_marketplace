@@ -7,6 +7,7 @@ import axios from "axios";
 import { useSettingModal } from "@/providers/SettingModalProvider";
 import { useWallet } from "@/providers/WalletProvider";
 import signAndConfirmTransaction from "@/lib/signAndConfirmTransaction";
+import { toast } from "react-toastify";
 
 const NftTransferModal = () => {
   const { nftTransferModal, setNftTransferModal } = useSettingModal();
@@ -47,14 +48,15 @@ const NftTransferModal = () => {
               network,
               transactions
             );
+            toast.success("Transfer success");
           } else {
             //setShowLister(false);
-            console.log("The API request failed");
+            toast.warning(res.data.message);
           }
         })
         // Catch errors if any
         .catch((err: any) => {
-          console.warn(err);
+          toast.error(err.response.data.message);
         });
     }
   };

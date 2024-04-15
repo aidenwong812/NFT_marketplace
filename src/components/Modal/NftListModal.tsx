@@ -7,16 +7,17 @@ import axios from "axios";
 import { useSettingModal } from "@/providers/SettingModalProvider";
 import { useWallet } from "@/providers/WalletProvider";
 import signAndConfirmTransaction from "@/lib/signAndConfirmTransaction";
+import { toast } from "react-toastify";
 
 const NftListModal = () => {
   const { nftListModal, setNftListModal } = useSettingModal();
   const pathName = usePathname();
-  const { network, selectedNFT, walletID } = useWallet()
-  const xKey = process.env.NEXT_PUBLIC_API_KEY.toString()
-  const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT
-  const marketplaceAddress = process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS
+  const { network, selectedNFT, walletID } = useWallet();
+  const xKey = process.env.NEXT_PUBLIC_API_KEY.toString();
+  const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
+  const marketplaceAddress = process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS;
 
-  const [price, setPrice] = useState(0)
+  const [price, setPrice] = useState(0);
 
   const handleList = () => {
     const nftUrl = `${endPoint}marketplace/list`;
@@ -27,48 +28,52 @@ const NftListModal = () => {
       nft_address: selectedNFT.mint,
       price: price,
       seller_wallet: walletID,
-    }
+    };
 
-    axios.post(nftUrl, data, {
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": xKey,
-      }
-    })
+    axios
+      .post(nftUrl, data, {
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": xKey,
+        },
+      })
       // Handle the response from backend here
       .then(async (res) => {
         if (res.data.success === true) {
           const transaction = res.data.result.encoded_transaction;
-          const ret_result = await signAndConfirmTransaction(network, transaction);
-          console.log(ret_result);
-        }
-        else {
+          const ret_result = await signAndConfirmTransaction(
+            network,
+            transaction
+          );
+          toast.success("Listing success");
+        } else {
           //setShowLister(false);
+          toast.warning(res.data.message);
         }
-
       })
       // Catch errors if any
       .catch((err) => {
-        console.warn(err);
+        toast.error(err.response.data.message);
         // navigate(`/my-listings`);
         //setShowLister(false);
       });
-    setPrice(0)
-    setNftListModal(false)
-  }
+    setPrice(0);
+    setNftListModal(false);
+  };
 
   return (
     <>
       <div
-        className={`${nftListModal &&
-          (pathName.includes("/nfts/"))
-          ? "w-[400px]"
-          : "w-0"
-          } flex flex-none h-full bg-[#171717] transition-all duration-500 overflow-auto modalWidth:static absolute right-0 z-20 prevent-select`}
+        className={`${
+          nftListModal && pathName.includes("/nfts/") ? "w-[400px]" : "w-0"
+        } flex flex-none h-full bg-[#171717] transition-all duration-500 overflow-auto modalWidth:static absolute right-0 z-20 prevent-select`}
       >
         <div className="w-[400px] h-full relative overflow-auto px-[30px] pb-[50px] flex-none flex">
           <div className="w-[340px] h-full overflow-auto flex-none">
-            <button onClick={() => setNftListModal(false)} className="mt-[60px]">
+            <button
+              onClick={() => setNftListModal(false)}
+              className="mt-[60px]"
+            >
               <Image
                 src="/icon/back_bgwhite.svg"
                 width={0}
@@ -90,7 +95,9 @@ const NftListModal = () => {
                 placeholder="Price"
                 onChange={(e) => setPrice(Number(e.target.value))}
               />
-              <p className="absolute top-[8px] right-[90px] text-[#53FAFB]">SOL</p>
+              <p className="absolute top-[8px] right-[90px] text-[#53FAFB]">
+                SOL
+              </p>
             </div>
             <p className="w-full text-center text-[14px] mt-[100px]">
               Are you sure you want to List <br /> for {price || 0} SOL?
