@@ -46,7 +46,7 @@ const Page = () => {
           <div className="w-full h-full mt-[20px] relative overflow-auto">
             {
               nfts.length > 0 ? (
-                <div className="w-full overflow-auto grid grid-cols-4 gap-[30px] absolute">
+                <div className="w-full overflow-auto grid grid-cols-4 gap-[20px] absolute">
                   {nfts.map((item, index) => (
                     <div key={index}>
                       <NewNFTS item={item} />
