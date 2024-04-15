@@ -34,7 +34,6 @@ const Marketplace = () => {
           } else {
             setNFTs([]);
           }
-          console.log(res.data.result);
         })
         .catch((err) => {
           setNFTs([]);

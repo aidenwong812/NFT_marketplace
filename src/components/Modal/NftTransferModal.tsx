@@ -41,17 +41,12 @@ const NftTransferModal = () => {
         })
         // Handle the response from backend here
         .then(async (res) => {
-          console.log(res.data);
-
           if (res.data.success === true) {
             const transactions = res.data.result.encoded_transaction;
-            console.log(transactions);
-            console.log(network);
             const ret_result = await signAndConfirmTransaction(
               network,
               transactions
             );
-            console.log(ret_result);
           } else {
             //setShowLister(false);
             console.log("The API request failed");
