@@ -24,8 +24,8 @@ const NftListModal = () => {
     const data = {
       network: network,
       marketplace_address: marketplaceAddress,
-      nft_address: selectedNFT,
-      price: Number(price),
+      nft_address: selectedNFT.mint,
+      price: price,
       seller_wallet: walletID,
     }
 

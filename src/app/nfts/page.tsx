@@ -2,20 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import ImageComponent from "@/components/shared/ImageComponent/demo";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useWallet } from "@/providers/WalletProvider";
-// const NFTs = [
-//   { image: "/nfts/1.svg", id: 1 },
-//   { image: "/nfts/2.svg", id: 2 },
-//   { image: "/nfts/3.svg", id: 3 },
-//   { image: "/nfts/2.svg", id: 4 },
-//   { image: "/nfts/2.svg", id: 5 },
-//   { image: "/nfts/3.svg", id: 6 },
-//   { image: "/nfts/4.svg", id: 7 },
-//   { image: "/nfts/3.svg", id: 8 },
-// ];
+
 const Marketplace = () => {
   const router = useRouter();
   const { network, walletID } = useWallet()
@@ -48,7 +38,6 @@ const Marketplace = () => {
       })
     }
   }, [walletID])
-  console.log(NFTs)
 
   return (
     <>
