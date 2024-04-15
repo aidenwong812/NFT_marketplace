@@ -71,7 +71,7 @@ const NFT = () => {
     <>
       <div className="w-full h-full relative overflow-auto">
         <div className="w-full flex flex-col px-[50px] bg-[#121212] overflow-auto absolute h-full">
-          <p className="text-[20px] mt-[20px]">New NFT</p>
+          <p className="text-[20px] mt-[20px]">Transfer Multiple NFTs</p>
           <div className="w-full pb-[30px] overflow-auto h-full">
             <div className="w-full flex flex-col justify-center items-center overflow-auto gridWidth:h-full gap-[30px]">
               <div className="gridWidth:flex gridWidth:flex-row gridWidth:gap-[40px] overflow-auto">
