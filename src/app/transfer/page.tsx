@@ -46,29 +46,7 @@ const Marketplace = () => {
     <>
       <div className="w-full h-full bg-[#121212]">
         <div className="w-full h-full bg-[#121212] flex flex-col px-[50px] overflow-auto">
-          <div className="w-full inline-flex items-center justify-between mt-[20px]">
-            <p className="text-[20px]">Transfer NFTs between Wallets</p>
-            <div className="inline-flex items-center">
-              <button>
-                <Image
-                  src="/icon/view_flex.svg"
-                  width={0}
-                  height={0}
-                  alt=""
-                  className="w-[15px] mr-[20px]"
-                />
-              </button>
-              <button>
-                <Image
-                  src="/icon/view_inline.svg"
-                  width={0}
-                  height={0}
-                  alt=""
-                  className="w-[15px]"
-                />
-              </button>
-            </div>
-          </div>
+          <p className="text-[20px] mt-[20px]">Transfer NFTs between Wallets</p>
 
           <div className="w-full h-full mt-[30px] mb-[30px] overflow-auto relative">
             <div className="w-full flex-none grid grid-cols-4 gap-[20px] overflow-auto absolute max-h-full">
