@@ -14,10 +14,6 @@ const Sider = dynamic(() => import("@/components/layout/Sider"), {
   loading: () => <SiderLoader />,
 });
 const Header = dynamic(() => import("@/components/layout/Header"));
-const Footer = dynamic(() => import("@/components/layout/Footer"), {
-  ssr: false,
-  loading: () => <FooterLoader />,
-});
 const FriendProfileModal = dynamic(
   () => import("@/components/Modal/FriendProfileModal")
 );
@@ -53,7 +49,6 @@ export default function RootLayout({
             <div className="flex-col flex w-full h-full">
               <Header />
               {children}
-              <Footer />
             </div>
             <FriendProfileModal />
             <UserSearchModal />
