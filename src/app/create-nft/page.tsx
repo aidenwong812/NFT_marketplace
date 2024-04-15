@@ -36,10 +36,10 @@ const NFT = () => {
       file,
     };
 
-    const endpoint = `${endPoint}nft/create_detach`;
+    const nftUrl = `${endPoint}nft/create_detach`;
 
     axios
-      .post(endpoint, data, {
+      .post(nftUrl, data, {
         headers: {
           "Content-Type": "multipart/form-data",
           "x-api-key": xKey,
