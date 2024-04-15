@@ -9,7 +9,7 @@ import { useWallet } from "@/providers/WalletProvider";
 
 const NFT = ({ params: { id } }) => {
   const router = useRouter();
-  const { nftListModal, setNftListModal } = useSettingModal()
+  const { nftBuyModal, setNftBuyModal } = useSettingModal()
   const { network, setSelectedNFT } = useWallet()
   const xKey = process.env.NEXT_PUBLIC_API_KEY.toString()
   const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT
@@ -134,9 +134,9 @@ const NFT = ({ params: { id } }) => {
               </div>
               <button
                 className="w-[130px] h-[45px] rounded-full border border-[#53FAFB] text-[#53FAFB] mr-[10px] hover:bg-[#53FAFB] hover:text-black"
-                onClick={() => {setNftListModal(!nftListModal)}}
+                onClick={() => {setNftBuyModal(!nftBuyModal)}}
               >
-                List
+                Buy
               </button>
             </div>
           </div>
