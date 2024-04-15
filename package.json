@@ -25,6 +25,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-firebase-hooks": "^5.1.1",
+    "react-toastify": "^10.0.5",
     "react-verification-input": "^4.1.1",
     "resend": "^3.2.0"
   },

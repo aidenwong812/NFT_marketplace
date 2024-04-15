@@ -13,7 +13,7 @@ const Sider = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [transition, setTransition] = useState<boolean>(true);
 
-  const { connStatus, solanaConnect, walletID } = useWallet()
+  const { connStatus, solanaConnect, walletID } = useWallet();
 
   const handleCloseSiderBar = () => {
     setSiderWidth(80);
@@ -29,9 +29,9 @@ const Sider = () => {
 
   const handleClick = () => {
     if (!connStatus) {
-      solanaConnect()
+      solanaConnect();
     }
-  }
+  };
 
   useEffect(() => {
     const handle = document.querySelector(".resize-handle") as HTMLElement;
@@ -72,15 +72,16 @@ const Sider = () => {
     });
 
     return () => {
-      document.removeEventListener("mousemove", () => { });
-      document.removeEventListener("mouseup", () => { });
+      document.removeEventListener("mousemove", () => {});
+      document.removeEventListener("mouseup", () => {});
     };
   }, []);
   return (
     <>
       <div
-        className={`desktop:flex-none prevent-select desktop:flex hidden justify-center bg-[#171717] h-full relative resize-current w-[300px] overflow-auto ${transition ? "transition-[width] duration-200" : "transition-none"
-          }`}
+        className={`desktop:flex-none prevent-select desktop:flex hidden justify-center bg-[#171717] h-full relative resize-current w-[300px] overflow-auto ${
+          transition ? "transition-[width] duration-200" : "transition-none"
+        }`}
       >
         <div
           className="resize-handle"
@@ -94,8 +95,9 @@ const Sider = () => {
           }}
         ></div>
         <button
-          className={`absolute right-[40px] top-[60px] ${siderWidth >= 250 ? "block" : "hidden"
-            }`}
+          className={`absolute right-[40px] top-[60px] ${
+            siderWidth >= 250 ? "block" : "hidden"
+          }`}
           onClick={() => handleCloseSiderBar()}
         >
           <Image
@@ -107,28 +109,31 @@ const Sider = () => {
           />
         </button>
         <button
-          className={`absolute left-[55px] top-[50%] w-[50px] h-[50px] ${siderWidth <= 80 ? "block" : "hidden"
-            } rounded-full`}
+          className={`absolute left-[30px] top-[50%] transform -translate-y-1/2 w-[50px] h-[50px] ${
+            siderWidth <= 80 ? "block" : "hidden"
+          } rounded-full`}
           onClick={() => handleOpenSiderBar()}
         >
           <Image
-            src="/icon/right.svg"
+            src="/icon/back_bgwhite.svg"
             width={0}
             height={0}
-            alt="return"
-            className="w-[15px] h-auto"
+            alt=""
+            className="w-[40px] h-auto scale-x-[-1]"
           />
         </button>
         <div className="w-[80%] flex flex-col h-full">
           <div
-            className={`mt-[65px]  ${siderWidth >= 250
-              ? "inline-flex ml-[20px] mb-[30px]"
-              : `flex justify-center mb-[40px]`
-              }`}
+            className={`mt-[65px]  ${
+              siderWidth >= 250
+                ? "inline-flex ml-[20px] mb-[30px]"
+                : `flex justify-center mb-[40px]`
+            }`}
           >
             <div
-              className={`h-auto ${siderWidth >= 250 ? "w-[50px]" : "w-[40px]"
-                } text-left`}
+              className={`h-auto ${
+                siderWidth >= 250 ? "w-[50px]" : "w-[40px]"
+              } text-left`}
             >
               {loading && (
                 <div className="w-full aspect-square bg-[#121212] rounded-[10px]"></div>
@@ -151,8 +156,9 @@ const Sider = () => {
             <ul className="text-white text-md">
               <div className="w-full inline-flex items-center justify-center">
                 <button
-                  className={`${siderWidth > 250 ? "w-[200px]" : "px-[7px]"
-                    } h-[40px] rounded-full border border-[#535353] inline-flex items-center justify-center font-ttfirs text-[12px] hover:opacity-70 transition-all duration-100`}
+                  className={`${
+                    siderWidth > 250 ? "w-[200px]" : "px-[7px]"
+                  } h-[40px] rounded-full border border-[#535353] inline-flex items-center justify-center font-ttfirs text-[12px] hover:opacity-70 transition-all duration-100`}
                   onClick={handleClick}
                 >
                   <Image
@@ -166,22 +172,20 @@ const Sider = () => {
                   {siderWidth > 250 ? (
                     <>
                       <div className="ml-[7px] mr-[7px]">
-                        {
-                          connStatus ? formatAddress(walletID) : "Connect Wallet"
-                        }
+                        {connStatus
+                          ? formatAddress(walletID)
+                          : "Connect Wallet"}
                       </div>
-                      {
-                        connStatus && (
-                          <Image
-                            src="/icon/copy.svg"
-                            width={0}
-                            height={0}
-                            alt={"logo"}
-                            priority={true}
-                            className="w-[15px] h-auto"
-                          />
-                        )
-                      }
+                      {connStatus && (
+                        <Image
+                          src="/icon/copy.svg"
+                          width={0}
+                          height={0}
+                          alt={"logo"}
+                          priority={true}
+                          className="w-[15px] h-auto"
+                        />
+                      )}
                     </>
                   ) : null}
                 </button>

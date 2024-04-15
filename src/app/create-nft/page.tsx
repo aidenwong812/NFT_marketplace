@@ -1,26 +1,27 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import ImageComponent from "@/components/shared/ImageComponent/demo";
+import { toast } from "react-toastify";
 import { useWallet } from "@/providers/WalletProvider";
 import signAndConfirmTransaction from "@/lib/signAndConfirmTransaction";
 
 const NFT = () => {
-  const { network, walletID } = useWallet()
+  const { network, walletID } = useWallet();
 
-  const xKey = process.env.NEXT_PUBLIC_API_KEY.toString()
-  const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT
+  const xKey = process.env.NEXT_PUBLIC_API_KEY.toString();
+  const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-  const [file, setFile] = useState(null)
-  const [preview, setPreview] = useState("")
-  const [name, setName] = useState("")
-  const [symbol, setSymbol] = useState("")
-  const [description, setDescription] = useState("")
-  const [url, setUrl] = useState("")
-  const [royalty, setRoyalty] = useState(0)
-  const [maxSupply, setMaxSupply] = useState(0)
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState("");
+  const [name, setName] = useState("");
+  const [symbol, setSymbol] = useState("");
+  const [description, setDescription] = useState("");
+  const [url, setUrl] = useState("");
+  const [royalty, setRoyalty] = useState(0);
+  const [maxSupply, setMaxSupply] = useState(0);
 
   const handleMint = () => {
     const data = {
@@ -33,25 +34,34 @@ const NFT = () => {
       max_supply: maxSupply,
       royalty,
       file,
-    }
+    };
 
-    const endpoint = `${endPoint}nft/create_detach`
+    const endpoint = `${endPoint}nft/create_detach`;
 
-    axios.post(endpoint, data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        "x-api-key": xKey,
-        Accept: "*/*",
-        "Access-Control-Allow-Origin": "*",
-      }
-    }).then(async res => {
-      if (res.data.success === true) {
-        const transaction = res.data.result.encoded_transaction
-        const mint = res.data.result.mint
-        const ret_result = await signAndConfirmTransaction(network, transaction)
-      }
-    })
-  }
+    axios
+      .post(endpoint, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "x-api-key": xKey,
+          Accept: "*/*",
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then(async (res) => {
+        if (res.data.success === true) {
+          const transaction = res.data.result.encoded_transaction;
+          const mint = res.data.result.mint;
+          const ret_result = await signAndConfirmTransaction(
+            network,
+            transaction
+          );
+          toast.success("NFT created successfully");
+        }
+      })
+      .catch((err) => {
+        toast.error("Something went wrong");
+      });
+  };
 
   return (
     <>
@@ -59,9 +69,7 @@ const NFT = () => {
         <div className="w-full flex flex-col px-[50px] bg-[#121212] overflow-auto absolute h-full">
           <div className="w-full flex justify-center">
             <div className="mt-[30px] w-full inline-flex justify-between items-center mb-[30px]">
-              <p className="text-[25px]">
-                New NFT
-              </p>
+              <p className="text-[25px]">New NFT</p>
             </div>
           </div>
           <div className="w-full pb-[30px] overflow-auto h-full">
@@ -70,18 +78,19 @@ const NFT = () => {
                 <div className="flex flex-col gap-[30px] w-[380px] flex-none justify-between mb-[50px] gridWidth:mb-0">
                   <div className="w-full flex-1">
                     <label htmlFor="file" className="cursor-pointer">
-                      {
-                        file ? (
-                          <ImageComponent src={preview} />
-                        ) : (
-                          <div className="flex items-center justify-center gap-[20px] w-full h-full duration-700 opacity-100 border-[2px] border-dashed rounded-[18px]">
-                            <Image src="/icon/upload.svg" width="25" height="25" alt="icon" />
-                            <p>
-                              Select File
-                            </p>
-                          </div>
-                        )
-                      }
+                      {file ? (
+                        <ImageComponent src={preview} />
+                      ) : (
+                        <div className="flex items-center justify-center gap-[20px] w-full h-full duration-700 opacity-100 border-[2px] border-dashed rounded-[18px]">
+                          <Image
+                            src="/icon/upload.svg"
+                            width="25"
+                            height="25"
+                            alt="icon"
+                          />
+                          <p>Select File</p>
+                        </div>
+                      )}
                     </label>
                     <input
                       id="file"
@@ -90,14 +99,13 @@ const NFT = () => {
                       accept="image/*"
                       className="hidden"
                       onChange={(e) => {
-                        setFile(e.target.files[0])
-                        setPreview(URL.createObjectURL(e.target.files[0]))
-                      }} />
+                        setFile(e.target.files[0]);
+                        setPreview(URL.createObjectURL(e.target.files[0]));
+                      }}
+                    />
                   </div>
                   <div className="w-full inline-flex items-center justify-between">
-                    <button
-                      className="inline-flex"
-                    >
+                    <button className="inline-flex">
                       <img
                         width={0}
                         height={0}

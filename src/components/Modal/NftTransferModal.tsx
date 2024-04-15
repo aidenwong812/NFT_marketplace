@@ -7,6 +7,7 @@ import axios from "axios";
 import { useSettingModal } from "@/providers/SettingModalProvider";
 import { useWallet } from "@/providers/WalletProvider";
 import signAndConfirmTransaction from "@/lib/signAndConfirmTransaction";
+import { toast } from "react-toastify";
 
 const NftTransferModal = () => {
   const { nftTransferModal, setNftTransferModal } = useSettingModal();
@@ -41,25 +42,21 @@ const NftTransferModal = () => {
         })
         // Handle the response from backend here
         .then(async (res) => {
-          console.log(res.data);
-
           if (res.data.success === true) {
             const transactions = res.data.result.encoded_transaction;
-            console.log(transactions);
-            console.log(network);
             const ret_result = await signAndConfirmTransaction(
               network,
               transactions
             );
-            console.log(ret_result);
+            toast.success("Transfer success");
           } else {
             //setShowLister(false);
-            console.log("The API request failed");
+            toast.warning(res.data.message);
           }
         })
         // Catch errors if any
         .catch((err: any) => {
-          console.warn(err);
+          toast.error("Transfer failed");
         });
     }
   };

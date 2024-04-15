@@ -3,11 +3,13 @@ import SettingModalProvider from "@/providers/SettingModalProvider";
 import dynamic from "next/dynamic";
 import FooterLoader from "@/components/layout/Footer/loader";
 import SiderLoader from "@/components/layout/Sider/loading";
+import { ToastContainer } from "react-toastify";
 export const metadata: Metadata = {
   title: "SOFT COQ INU",
   description: "SOFT COQ INU",
 };
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import WalletProvider from "@/providers/WalletProvider";
 
 const Sider = dynamic(() => import("@/components/layout/Sider"), {
@@ -15,10 +17,6 @@ const Sider = dynamic(() => import("@/components/layout/Sider"), {
   loading: () => <SiderLoader />,
 });
 const Header = dynamic(() => import("@/components/layout/Header"));
-const Footer = dynamic(() => import("@/components/layout/Footer"), {
-  ssr: false,
-  loading: () => <FooterLoader />,
-});
 const FriendProfileModal = dynamic(
   () => import("@/components/Modal/FriendProfileModal")
 );
@@ -53,12 +51,23 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-ttfirs bg-cover bg-center bg-[url('/community/bg.svg')] -z-10 bg-[#121212] fixed left-0 right-0 top-0 bottom-0 flex flex-row">
         <SettingModalProvider>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
           <WalletProvider>
             <Sider />
             <div className="flex-col flex w-full h-full">
               <Header />
               {children}
-              <Footer />
             </div>
             <FriendProfileModal />
             <UserSearchModal />

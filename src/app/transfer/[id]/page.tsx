@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useSettingModal } from "@/providers/SettingModalProvider";
 import { useWallet } from "@/providers/WalletProvider";
+import { toast } from "react-toastify";
 
 const NFT = ({ params: { id } }) => {
   const router = useRouter();
@@ -42,6 +43,9 @@ const NFT = ({ params: { id } }) => {
           setNFT(res.data.result);
           setSelectedNFT(res.data.result);
         }
+      })
+      .catch((err) => {
+        toast.error("Something went wrong");
       });
   }, [nftUrl]);
 
