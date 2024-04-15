@@ -16,7 +16,7 @@ const SiderList1 = (props: any) => {
           _name="Create NFT"
           _icon="/icon/create_icon_white.svg"
           _clickedIcon="/icon/create_icon_blue.svg"
-          _url="/nfts/new"
+          _url="/create-nft"
           pathname={props.pathname}
           siderWidth={props.siderWidth}
         />

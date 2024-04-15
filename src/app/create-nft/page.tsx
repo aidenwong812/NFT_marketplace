@@ -9,7 +9,6 @@ import { useWallet } from "@/providers/WalletProvider";
 import signAndConfirmTransaction from "@/lib/signAndConfirmTransaction";
 
 const NFT = () => {
-  const router = useRouter();
   const { network, walletID } = useWallet()
 
   const xKey = process.env.NEXT_PUBLIC_API_KEY.toString()
