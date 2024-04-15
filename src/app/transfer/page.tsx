@@ -37,7 +37,7 @@ const Marketplace = () => {
           }
         })
         .catch((err) => {
-          toast.error(err.response.data.message);
+          toast.error("Error: " + err.response.data.message);
           setNFTs([]);
         });
     }

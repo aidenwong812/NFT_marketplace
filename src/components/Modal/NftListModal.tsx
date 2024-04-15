@@ -53,7 +53,7 @@ const NftListModal = () => {
       })
       // Catch errors if any
       .catch((err) => {
-        toast.error(err.response.data.message);
+        toast.error("Listing failed");
         // navigate(`/my-listings`);
         //setShowLister(false);
       });

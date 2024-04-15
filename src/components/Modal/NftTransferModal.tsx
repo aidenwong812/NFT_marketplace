@@ -56,7 +56,7 @@ const NftTransferModal = () => {
         })
         // Catch errors if any
         .catch((err: any) => {
-          toast.error(err.response.data.message);
+          toast.error("Transfer failed");
         });
     }
   };

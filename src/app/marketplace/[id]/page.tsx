@@ -43,7 +43,7 @@ const NFT = ({ params: { id } }) => {
           setNFT(res.data.result);
         }
       })
-      .catch((err) => toast.error(err.response.data.error));
+      .catch((err) => toast.error("Something went wrong"));
   }, [nftUrl]);
 
   return (

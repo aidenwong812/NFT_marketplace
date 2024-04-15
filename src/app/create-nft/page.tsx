@@ -59,7 +59,7 @@ const NFT = () => {
         }
       })
       .catch((err) => {
-        toast.error(err.response.data.message);
+        toast.error("Something went wrong");
       });
   };
 

@@ -50,7 +50,7 @@ const NftBuyModal = () => {
       })
       // Catch errors if any
       .catch((err) => {
-        toast.error(err.response.data.message);
+        toast.error("Transaction failed!");
       });
     setNftBuyModal(false);
   };

@@ -45,7 +45,7 @@ const NFT = ({ params: { id } }) => {
         }
       })
       .catch((err) => {
-        toast.error(err.response.data.message);
+        toast.error("Something went wrong");
       });
   }, [nftUrl]);
 
