@@ -1,196 +1,90 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import ImageComponent from "@/components/shared/ImageComponent/demo";
 import { useWallet } from "@/providers/WalletProvider";
-import signAndConfirmTransaction from "@/lib/signAndConfirmTransaction";
 
-const NFT = () => {
+const Marketplace = () => {
   const router = useRouter();
   const { network, walletID } = useWallet();
+  const xKey = process.env.NEXT_PUBLIC_API_KEY.toString();
+  const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-  const [file, setFile] = useState("");
-  const [name, setName] = useState("");
-  const [symbol, setSymbol] = useState("");
-  const [description, setDescription] = useState("");
-  const [attributes, setAttributes] = useState("");
-  const [url, setUrl] = useState("");
-  const [royalty, setRoyalty] = useState(0);
-  const [maxSupply, setMaxSupply] = useState(0);
+  const [NFTs, setNFTs] = useState([]);
 
-  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target?.files) {
-      const reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
+  useEffect(() => {
+    if (walletID) {
+      const endpoint = `${endPoint}nft/read_all`;
 
-      reader.onloadend = function () {
-        setFile(reader.result as string);
-      };
+      axios
+        .get(endpoint, {
+          headers: {
+            "x-api-key": xKey,
+          },
+          params: {
+            network: network,
+            address: walletID,
+          },
+        })
+        .then((res) => {
+          if (res.data.success === true) {
+            setNFTs(res.data.result);
+          } else {
+            setNFTs([]);
+          }
+          console.log(res.data.result);
+        })
+        .catch((err) => {
+          setNFTs([]);
+        });
     }
-  };
-
-  const handleMint = () => {
-    const data = {
-      network,
-      wallet: walletID,
-      name,
-      symbol,
-      description,
-      attributes: JSON.stringify(attributes),
-      external_url: url,
-      max_supply: maxSupply,
-      royalty,
-      file,
-    };
-    const endpoint = "https://api.shyft.to/sol/v1/nft/create_detach";
-
-    axios
-      .post(endpoint, data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "x-api-key": "mMQyQQu1l0Tbz-Wr",
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
-      .then(async (res) => {
-        if (res.data.success === true) {
-          const transaction = res.data.result.encoded_transaction;
-          const mint = res.data.result.mint;
-          const ret_result = await signAndConfirmTransaction(
-            network,
-            transaction
-          );
-        }
-      });
-  };
+  }, [walletID]);
 
   return (
     <>
-      <div className="w-full h-full relative overflow-auto">
-        <div className="w-full flex flex-col px-[50px] bg-[#121212] overflow-auto absolute h-full">
-          <p className="text-[20px] mt-[20px]">Transfer Multiple NFTs</p>
-          <div className="w-full pb-[30px] overflow-auto h-full">
-            <div className="w-full flex flex-col justify-center items-center overflow-auto gridWidth:h-full gap-[30px]">
-              <div className="gridWidth:flex gridWidth:flex-row gridWidth:gap-[40px] overflow-auto">
-                <div className="flex flex-col gap-[30px] w-[380px] flex-none justify-between mb-[50px] gridWidth:mb-0">
-                  <div className="w-full flex-1">
-                    <label htmlFor="file" className="cursor-pointer">
-                      {file ? (
-                        <ImageComponent src={file} />
-                      ) : (
-                        <div className="flex items-center justify-center gap-[20px] w-full h-full duration-700 opacity-100 border-[2px] border-dashed rounded-[18px]">
-                          <Image
-                            src="/icon/upload.svg"
-                            width="25"
-                            height="25"
-                            alt="icon"
-                          />
-                          <p>Select File</p>
-                        </div>
-                      )}
-                    </label>
-                    <input
-                      id="file"
-                      name="file"
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={handleFile}
-                    ></input>
-                  </div>
-                  <div className="w-full inline-flex items-center justify-between">
-                    <button className="inline-flex">
-                      <img
-                        width={0}
-                        height={0}
-                        alt=""
-                        src={"/avatar/21.png"}
-                        className="w-[45px] h-auto rounded-[8px]"
-                      />
-                      <div className="ml-[20px] text-left">
-                        <p>SOFT COQ INU</p>
-                        <p className="text-[12px] text-[#7A7A7A]">
-                          66,2k Members – 272 Active
-                        </p>
-                      </div>
-                    </button>
-                    <button className="inline-flex items-center justify-center w-[100px] h-[35px] bg-[#53FAFB] rounded-full">
-                      <p className="text-[13px] text-black font-bold">Joined</p>
-                      <Image
-                        src="/icon/dropdown.svg"
-                        width={0}
-                        height={0}
-                        alt=""
-                        className="w-[10px] ml-[10px]"
-                      />
-                    </button>
-                  </div>
-                </div>
-                <div className="h-full gridWidth:w-[500px] w-[380px] flex flex-col overflow-auto flex-1 px-[20px] gap-[20px]">
-                  <input
-                    placeholder="Enter NFT Name"
-                    onChange={(e) => {
-                      setName(e.target.value);
-                    }}
-                    className="bg-[#191919] border-none outline-none placeholder:text-[#707070] py-[15px] px-[25px] w-full rounded-[12px] text-[14px]"
-                  />
-                  <input
-                    placeholder="symbol"
-                    onChange={(e) => {
-                      setSymbol(e.target.value);
-                    }}
-                    className="bg-[#191919] border-none outline-none placeholder:text-[#707070] py-[15px] px-[25px] w-full rounded-[12px] text-[14px]"
-                  />
-                  <textarea
-                    placeholder="Enter Description"
-                    onChange={(e) => {
-                      setDescription(e.target.value);
-                    }}
-                    className="bg-[#191919] border-none outline-none placeholder:text-[#707070] py-[15px] px-[25px] w-full rounded-[12px] text-[14px]"
-                  />
-                  <textarea
-                    placeholder="Enter Attributes"
-                    onChange={(e) => {
-                      setAttributes(e.target.value);
-                    }}
-                    className="bg-[#191919] border-none outline-none placeholder:text-[#707070] py-[15px] px-[25px] w-full rounded-[12px] text-[14px]"
-                  />
-                  <input
-                    placeholder="Enter URL"
-                    onChange={(e) => {
-                      setUrl(e.target.value);
-                    }}
-                    className="bg-[#191919] border-none outline-none placeholder:text-[#707070] py-[15px] px-[25px] w-full rounded-[12px] text-[14px]"
-                  />
-                  <div className="flex items-center gap-[20px]">
-                    <input
-                      placeholder="Enter Max Supply"
-                      type="number"
-                      onChange={(e) => {
-                        setMaxSupply(Number(e.target.value));
-                      }}
-                      className="bg-[#191919] border-none outline-none placeholder:text-[#707070] py-[15px] px-[25px] w-full rounded-[12px] text-[14px]"
-                    />
-                    <input
-                      placeholder="Enter Loyalty"
-                      type="number"
-                      onChange={(e) => {
-                        setRoyalty(Number(e.target.value));
-                      }}
-                      className="bg-[#191919] border-none outline-none placeholder:text-[#707070] py-[15px] px-[25px] w-full rounded-[12px] text-[14px]"
-                    />
-                  </div>
-                </div>
-              </div>
-              <button
-                className="w-[130px] h-[45px] rounded-full border border-[#53FAFB] text-[#53FAFB] mr-[10px] hover:bg-[#53FAFB] hover:text-black"
-                onClick={handleMint}
-              >
-                Mint
+      <div className="w-full h-full bg-[#121212]">
+        <div className="w-full h-full bg-[#121212] flex flex-col px-[50px] overflow-auto">
+          <div className="w-full inline-flex items-center justify-between mt-[20px]">
+            <p className="text-[20px]">Transfer NFTs between Wallets</p>
+            <div className="inline-flex items-center">
+              <button>
+                <Image
+                  src="/icon/view_flex.svg"
+                  width={0}
+                  height={0}
+                  alt=""
+                  className="w-[15px] mr-[20px]"
+                />
               </button>
+              <button>
+                <Image
+                  src="/icon/view_inline.svg"
+                  width={0}
+                  height={0}
+                  alt=""
+                  className="w-[15px]"
+                />
+              </button>
+            </div>
+          </div>
+
+          <div className="w-full h-full mt-[30px] mb-[30px] overflow-auto relative">
+            <div className="w-full flex-none grid grid-cols-4 gap-[20px] overflow-auto absolute max-h-full">
+              {NFTs.map((nft) => (
+                <button
+                  onClick={() => router.push(`/transfer/${nft.mint}`)}
+                  key={nft.mint}
+                  className="relative"
+                >
+                  <img
+                    src={nft.cached_image_uri}
+                    alt="nft_image"
+                    className="rounded-[18px]"
+                  />
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -198,4 +92,4 @@ const NFT = () => {
     </>
   );
 };
-export default NFT;
+export default Marketplace;
