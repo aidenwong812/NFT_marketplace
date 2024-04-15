@@ -12,25 +12,17 @@ const NFT = () => {
   const router = useRouter();
   const { network, walletID } = useWallet()
 
-  const [file, setFile] = useState("")
+  const xKey = process.env.NEXT_PUBLIC_API_KEY.toString()
+  const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT
+
+  const [file, setFile] = useState(null)
+  const [preview, setPreview] = useState("")
   const [name, setName] = useState("")
   const [symbol, setSymbol] = useState("")
   const [description, setDescription] = useState("")
-  const [attributes, setAttributes] = useState("")
   const [url, setUrl] = useState("")
   const [royalty, setRoyalty] = useState(0)
   const [maxSupply, setMaxSupply] = useState(0)
-
-  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target?.files) {
-      const reader = new FileReader();
-      reader.readAsDataURL(e.target.files[0]);
-
-      reader.onloadend = function () {
-        setFile(reader.result as string);
-      }
-    }
-  }
 
   const handleMint = () => {
     const data = {
@@ -39,18 +31,19 @@ const NFT = () => {
       name,
       symbol,
       description,
-      attributes: JSON.stringify(attributes),
       external_url: url,
       max_supply: maxSupply,
       royalty,
       file,
     }
-    const endpoint = "https://api.shyft.to/sol/v1/nft/create_detach"
+
+    const endpoint = `${endPoint}nft/create_detach`
 
     axios.post(endpoint, data, {
       headers: {
         "Content-Type": "multipart/form-data",
-        "x-api-key": "mMQyQQu1l0Tbz-Wr",
+        "x-api-key": xKey,
+        Accept: "*/*",
         "Access-Control-Allow-Origin": "*",
       }
     }).then(async res => {
@@ -68,34 +61,20 @@ const NFT = () => {
         <div className="w-full flex flex-col px-[50px] bg-[#121212] overflow-auto absolute h-full">
           <div className="w-full flex justify-center">
             <div className="mt-[30px] w-full inline-flex justify-between items-center mb-[30px]">
-              <button
-                className="inline-flex items-center"
-                onClick={() => {
-                  router.back();
-                }}
-              >
-                <Image
-                  src="/icon/back_bgwhite.svg"
-                  width={0}
-                  height={0}
-                  alt=""
-                  className="w-[40px] h-auto"
-                />
-                <p className="text-[25px] ml-[20px]">
-                  New NFT
-                </p>
-              </button>
+              <p className="text-[25px]">
+                New NFT
+              </p>
             </div>
           </div>
           <div className="w-full pb-[30px] overflow-auto h-full">
-            <div className="w-full flex flex-col justify-center items-center overflow-auto gridWidth:h-full gap-[30px]">
+            <div className="w-full flex flex-col justify-center items-center overflow-auto gridWidth:h-full gap-[40px]">
               <div className="gridWidth:flex gridWidth:flex-row gridWidth:gap-[40px] overflow-auto">
                 <div className="flex flex-col gap-[30px] w-[380px] flex-none justify-between mb-[50px] gridWidth:mb-0">
                   <div className="w-full flex-1">
                     <label htmlFor="file" className="cursor-pointer">
                       {
                         file ? (
-                          <ImageComponent src={file} />
+                          <ImageComponent src={preview} />
                         ) : (
                           <div className="flex items-center justify-center gap-[20px] w-full h-full duration-700 opacity-100 border-[2px] border-dashed rounded-[18px]">
                             <Image src="/icon/upload.svg" width="25" height="25" alt="icon" />
@@ -106,7 +85,16 @@ const NFT = () => {
                         )
                       }
                     </label>
-                    <input id="file" name="file" type="file" accept="image/*" className="hidden" onChange={handleFile}></input>
+                    <input
+                      id="file"
+                      name="file"
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        setFile(e.target.files[0])
+                        setPreview(URL.createObjectURL(e.target.files[0]))
+                      }} />
                   </div>
                   <div className="w-full inline-flex items-center justify-between">
                     <button
@@ -138,7 +126,7 @@ const NFT = () => {
                     </button>
                   </div>
                 </div>
-                <div className="h-full gridWidth:w-[500px] w-[380px] flex flex-col overflow-auto flex-1 px-[20px] gap-[20px]">
+                <div className="h-full gridWidth:w-[500px] w-[380px] flex flex-col overflow-auto flex-1 px-[20px] gap-[25px]">
                   <input
                     placeholder="Enter NFT Name"
                     onChange={(e) => {
@@ -157,13 +145,6 @@ const NFT = () => {
                     placeholder="Enter Description"
                     onChange={(e) => {
                       setDescription(e.target.value);
-                    }}
-                    className="bg-[#191919] border-none outline-none placeholder:text-[#707070] py-[15px] px-[25px] w-full rounded-[12px] text-[14px]"
-                  />
-                  <textarea
-                    placeholder="Enter Attributes"
-                    onChange={(e) => {
-                      setAttributes(e.target.value);
                     }}
                     className="bg-[#191919] border-none outline-none placeholder:text-[#707070] py-[15px] px-[25px] w-full rounded-[12px] text-[14px]"
                   />

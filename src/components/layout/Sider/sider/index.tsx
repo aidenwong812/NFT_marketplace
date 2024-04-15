@@ -5,7 +5,7 @@ const SiderList1 = (props: any) => {
     <>
       <ul className="text-[#D4D4D4] text-md mt-[10px] h-full overflow-auto">
         <ListComponent
-          _name="NFTs"
+          _name="My NFTs"
           _icon="/icon/NFT.svg"
           _clickedIcon="/icon/NFT_blue.svg"
           _url="/nfts"
@@ -16,7 +16,7 @@ const SiderList1 = (props: any) => {
           _name="Create NFT"
           _icon="/icon/create_icon_white.svg"
           _clickedIcon="/icon/create_icon_blue.svg"
-          _url="/create-nft"
+          _url="/nfts/new"
           pathname={props.pathname}
           siderWidth={props.siderWidth}
         />
