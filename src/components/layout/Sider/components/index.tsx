@@ -26,7 +26,7 @@ const _renderLinkItem = (props: any) => {
         } text-white hover:border-[#F7F9FC] hover:bg-[#50FFFF0D] cursor-pointer text-sm rounded-[10px] font-ttfirs ${
           props._url === "/home" && props._url === props.pathname
             ? "bg-[#50FFFF0D] border-none"
-            : props._url !== "/home" && props.pathname === props._url
+            : props._url !== "/home" && props.pathname.includes(props._url)
             ? "bg-[#50FFFF0D] border-none"
             : ""
         }`}
@@ -43,7 +43,7 @@ const _renderLinkItem = (props: any) => {
               className="w-[20px] h-auto"
             />
           </div>
-        ) : props._url !== "/home" && props.pathname === props._url ? (
+        ) : props._url !== "/home" && props.pathname.includes(props._url) ? (
           <div
             className={`${props.siderWidth > 250 ? `mr-[15px]` : ""} w-[20px]`}
           >
@@ -85,7 +85,7 @@ const _renderLinkItem = (props: any) => {
                 </div>
               </>
             ) : props._url !== "/home" &&
-              props.pathname === props._url ? (
+              props.pathname.includes(props._url) ? (
               <div className="absolute right-[20px] w-[8px]">
                 <Image
                   src="/icon/active.svg"

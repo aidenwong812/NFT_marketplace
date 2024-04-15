@@ -2,14 +2,12 @@
 
 import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import ImageComponent from "@/components/shared/ImageComponent/demo";
 import { useWallet } from "@/providers/WalletProvider";
 import signAndConfirmTransaction from "@/lib/signAndConfirmTransaction";
 
 const NFT = () => {
-  const router = useRouter();
   const { network, walletID } = useWallet()
 
   const xKey = process.env.NEXT_PUBLIC_API_KEY.toString()
