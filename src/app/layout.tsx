@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import SettingModalProvider from "@/providers/SettingModalProvider";
 import dynamic from "next/dynamic";
-import FooterLoader from "@/components/layout/Footer/loader";
 import SiderLoader from "@/components/layout/Sider/loading";
 import { ToastContainer } from "react-toastify";
 export const metadata: Metadata = {

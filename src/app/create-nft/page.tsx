@@ -7,6 +7,7 @@ import ImageComponent from "@/components/shared/ImageComponent/demo";
 import { toast } from "react-toastify";
 import { useWallet } from "@/providers/WalletProvider";
 import signAndConfirmTransaction from "@/lib/signAndConfirmTransaction";
+import Spinner from "@/components/notification/message/spinner";
 
 const NFT = () => {
   const { network, walletID } = useWallet();
@@ -23,7 +24,10 @@ const NFT = () => {
   const [royalty, setRoyalty] = useState(0);
   const [maxSupply, setMaxSupply] = useState(0);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleMint = () => {
+    setIsLoading(true);
     const data = {
       network,
       wallet: walletID,
@@ -60,6 +64,9 @@ const NFT = () => {
       })
       .catch((err) => {
         toast.error("Something went wrong");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -185,7 +192,7 @@ const NFT = () => {
                 className="w-[130px] h-[45px] rounded-full border border-[#53FAFB] text-[#53FAFB] mr-[10px] hover:bg-[#53FAFB] hover:text-black"
                 onClick={handleMint}
               >
-                Mint
+                {isLoading ? <Spinner /> : "Mint"}
               </button>
             </div>
           </div>

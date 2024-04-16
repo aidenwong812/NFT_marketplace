@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import axios from "axios";
@@ -7,13 +7,16 @@ import { useSettingModal } from "@/providers/SettingModalProvider";
 import { useWallet } from "@/providers/WalletProvider";
 import signAndConfirmTransaction from "@/lib/signAndConfirmTransaction";
 import { toast } from "react-toastify";
+import SpinnerWhite from "../notification/message/spinnerWhite";
 
 const NftBuyModal = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const pathName = usePathname();
   const { nftBuyModal, setNftBuyModal } = useSettingModal();
   const { network, selectedNFT, walletID } = useWallet();
 
   const handleBuy = () => {
+    setIsLoading(true);
     const xKey = process.env.NEXT_PUBLIC_API_KEY.toString();
     const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
     const marketplaceAddress = process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS;
@@ -51,8 +54,11 @@ const NftBuyModal = () => {
       // Catch errors if any
       .catch((err) => {
         toast.error("Transaction failed!");
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setNftBuyModal(false);
       });
-    setNftBuyModal(false);
   };
 
   return (
@@ -95,11 +101,14 @@ const NftBuyModal = () => {
               className="w-full h-[40px] bg-[#50FFFF] text-black font-bold rounded-full text-[13px] mt-[80px]"
               onClick={handleBuy}
             >
-              Confirm
+              {isLoading ? <SpinnerWhite /> : "Confirm"}
             </button>
             <button
               className="w-full h-[40px] border-[1px] border-[#50FFFF] text-[#50FFFF] font-bold rounded-full text-[13px] mt-[20px]"
-              onClick={() => setNftBuyModal(false)}
+              onClick={() => {
+                setNftBuyModal(false);
+                setIsLoading(false);
+              }}
             >
               Cancel
             </button>
