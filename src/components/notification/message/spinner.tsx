@@ -18,7 +18,7 @@ const Spinner = () => {
           border-radius: 50%;
           width: 30px;
           height: 30px;
-          animation: spin 1.5s linear infinite;
+          animation: spin 1s linear infinite;
         }
         @keyframes spin {
           0% {

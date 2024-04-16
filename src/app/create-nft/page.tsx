@@ -189,8 +189,11 @@ const NFT = () => {
                 </div>
               </div>
               <button
-                className="w-[130px] h-[45px] rounded-full border border-[#53FAFB] text-[#53FAFB] mr-[10px] hover:bg-[#53FAFB] hover:text-black"
+                className={`w-[130px] h-[45px] rounded-full border border-[#53FAFB] text-[#53FAFB] mr-[10px] ${
+                  !isLoading && "hover:bg-[#53FAFB]"
+                } hover:text-black`}
                 onClick={handleMint}
+                disabled={isLoading}
               >
                 {isLoading ? <Spinner /> : "Mint"}
               </button>
