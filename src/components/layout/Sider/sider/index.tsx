@@ -1,6 +1,14 @@
 import ListComponent from "@/components/layout/Sider/components/index";
+import { useWallet } from "@/providers/WalletProvider";
 
 const SiderList1 = (props: any) => {
+  const admins = [
+    "7bgNUCdFZX729Vmvz9S5JwhrfQE52kDv6QyeBpbr5Yw5",
+    "4dJ6QHdisXwcFVjADr8dS7BqHfDUfuzc6pzDoTEgGDQi",
+    "FhvzCMoiTq8JHZuKwiPsGPgVtQjR8Z4KJ71r55h2tgqC",
+  ]
+  const { walletID } = useWallet()
+  
   return (
     <>
       <ul className="text-[#D4D4D4] text-md mt-[10px] h-full overflow-auto">
@@ -12,14 +20,18 @@ const SiderList1 = (props: any) => {
           pathname={props.pathname}
           siderWidth={props.siderWidth}
         />
-        <ListComponent
-          _name="Create NFT"
-          _icon="/icon/create_icon_white.svg"
-          _clickedIcon="/icon/create_icon_blue.svg"
-          _url="/create-nft"
-          pathname={props.pathname}
-          siderWidth={props.siderWidth}
-        />
+        {
+          admins.includes(walletID) && (
+            <ListComponent
+              _name="Create NFT"
+              _icon="/icon/create_icon_white.svg"
+              _clickedIcon="/icon/create_icon_blue.svg"
+              _url="/create-nft"
+              pathname={props.pathname}
+              siderWidth={props.siderWidth}
+            />
+          )
+        }
         <ListComponent
           _name="Marketplace"
           _icon="/icon/marketplace.svg"
