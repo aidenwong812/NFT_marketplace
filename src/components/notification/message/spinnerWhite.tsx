@@ -1,17 +1,17 @@
 import React from "react";
 const SpinnerWhite = () => {
   return (
-    <div className="loader-container m-auto">
-      <div className="loader"></div>
+    <div className="spinner-container m-auto">
+      <div className="spinner"></div>
       <style jsx>{`
-        .loader-container {
+        .spinner-container {
           display: flex;
           justify-content: center;
           align-items: center;
           height: 24px;
           width: 24px;
         }
-        .loader {
+        .spinner {
           border: 4px solid transparent; /* Light grey */
           border-top: 4px solid white; /* Blue */
           border-left: 4px solid white; /* Blue */
