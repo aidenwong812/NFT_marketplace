@@ -7,6 +7,7 @@ import axios from "axios";
 import { useSettingModal } from "@/providers/SettingModalProvider";
 import { useWallet } from "@/providers/WalletProvider";
 import { toast } from "react-toastify";
+import Spinner from "@/components/notification/message/spinner";
 
 const NFT = ({ params: { id } }) => {
   const router = useRouter();
@@ -160,7 +161,7 @@ const NFT = ({ params: { id } }) => {
                   setNftTransferModal(!nftTransferModal);
                 }}
               >
-                Transfer
+                {nftTransferModal ? <Spinner /> : "Transfer"}
               </button>
             </div>
           </div>

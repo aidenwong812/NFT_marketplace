@@ -8,8 +8,10 @@ import { useSettingModal } from "@/providers/SettingModalProvider";
 import { useWallet } from "@/providers/WalletProvider";
 import signAndConfirmTransaction from "@/lib/signAndConfirmTransaction";
 import { toast } from "react-toastify";
+import SpinnerWhite from "../notification/message/spinnerWhite";
 
 const NftTransferModal = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { nftTransferModal, setNftTransferModal } = useSettingModal();
   const pathName = usePathname();
   const { network, selectedNFT, walletID } = useWallet();
@@ -18,6 +20,7 @@ const NftTransferModal = () => {
   const [address, setAddress] = useState("");
 
   const handleTransfer = () => {
+    setIsLoading(true);
     const xKey = process.env.NEXT_PUBLIC_API_KEY.toString();
     const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
@@ -57,6 +60,10 @@ const NftTransferModal = () => {
         // Catch errors if any
         .catch((err: any) => {
           toast.error("Transfer failed");
+        })
+        .finally(() => {
+          setIsLoading(false);
+          setNftTransferModal(false);
         });
     }
   };
@@ -146,11 +153,14 @@ const NftTransferModal = () => {
               className="w-full h-[40px] bg-[#50FFFF] text-black font-bold rounded-full text-[13px] mt-[80px]"
               onClick={handleTransfer}
             >
-              Confirm
+              {isLoading ? <SpinnerWhite /> : "Confirm"}
             </button>
             <button
               className="w-full h-[40px] border-[1px] border-[#50FFFF] text-[#50FFFF] font-bold rounded-full text-[13px] mt-[20px]"
-              onClick={() => setNftTransferModal(false)}
+              onClick={() => {
+                setNftTransferModal(false);
+                setIsLoading(false);
+              }}
             >
               Cancel
             </button>

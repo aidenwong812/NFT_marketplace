@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 
 const useWalletData = () => {
-  const [network, setNetwork] = useState("mainnet-beta");
+  const [network, setNetwork] = useState("devnet");
   const [walletID, setWalletID] = useState("");
   const [connStatus, setConnStatus] = useState(false);
   const [selectedNFT, setSelectedNFT] = useState({});
 
   useEffect(() => {
-    solanaConnect()
-  }, [])
+    solanaConnect();
+  }, []);
 
   const solanaConnect = async () => {
     const { solana } = window as any;
@@ -28,11 +28,10 @@ const useWalletData = () => {
         setWalletID(wallet.address);
         setConnStatus(true);
       }
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   return {
     network,
@@ -44,7 +43,7 @@ const useWalletData = () => {
     solanaConnect,
     selectedNFT,
     setSelectedNFT,
-  }
-}
+  };
+};
 
-export default useWalletData
+export default useWalletData;

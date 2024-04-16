@@ -8,8 +8,10 @@ import { useSettingModal } from "@/providers/SettingModalProvider";
 import { useWallet } from "@/providers/WalletProvider";
 import signAndConfirmTransaction from "@/lib/signAndConfirmTransaction";
 import { toast } from "react-toastify";
+import SpinnerWhite from "../notification/message/spinnerWhite";
 
 const NftListModal = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const { nftListModal, setNftListModal } = useSettingModal();
   const pathName = usePathname();
   const { network, selectedNFT, walletID } = useWallet();
@@ -20,6 +22,7 @@ const NftListModal = () => {
   const [price, setPrice] = useState(0);
 
   const handleList = () => {
+    setIsLoading(true);
     const nftUrl = `${endPoint}marketplace/list`;
 
     const data = {
@@ -56,9 +59,12 @@ const NftListModal = () => {
         toast.error("Listing failed");
         // navigate(`/my-listings`);
         //setShowLister(false);
+      })
+      .finally(() => {
+        setPrice(0);
+        setIsLoading(false);
+        setNftListModal(false);
       });
-    setPrice(0);
-    setNftListModal(false);
   };
 
   return (
@@ -106,11 +112,14 @@ const NftListModal = () => {
               className="w-full h-[40px] bg-[#50FFFF] text-black font-bold rounded-full text-[13px] mt-[80px]"
               onClick={handleList}
             >
-              Confirm
+              {isLoading ? <SpinnerWhite /> : "Confirm"}
             </button>
             <button
               className="w-full h-[40px] border-[1px] border-[#50FFFF] text-[#50FFFF] font-bold rounded-full text-[13px] mt-[20px]"
-              onClick={() => setNftListModal(false)}
+              onClick={() => {
+                setNftListModal(false);
+                setIsLoading(false);
+              }}
             >
               Cancel
             </button>
