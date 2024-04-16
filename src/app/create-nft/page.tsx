@@ -1,7 +1,8 @@
 "use client";
 
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import ImageComponent from "@/components/shared/ImageComponent/demo";
 import { toast } from "react-toastify";
@@ -11,6 +12,7 @@ import Spinner from "@/components/notification/message/spinner";
 
 const NFT = () => {
   const { network, walletID } = useWallet();
+  const router = useRouter()
 
   const xKey = process.env.NEXT_PUBLIC_API_KEY.toString();
   const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
@@ -25,6 +27,17 @@ const NFT = () => {
   const [maxSupply, setMaxSupply] = useState(0);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const admins = [
+      "7bgNUCdFZX729Vmvz9S5JwhrfQE52kDv6QyeBpbr5Yw5",
+      "4dJ6QHdisXwcFVjADr8dS7BqHfDUfuzc6pzDoTEgGDQi",
+      "FhvzCMoiTq8JHZuKwiPsGPgVtQjR8Z4KJ71r55h2tgqC",
+    ]
+    if (!admins.includes(walletID)) {
+      router.push("/nfts")
+    }
+  }, [walletID])
 
   const handleMint = () => {
     setIsLoading(true);
