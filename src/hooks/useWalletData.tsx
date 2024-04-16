@@ -14,7 +14,7 @@ const useWalletData = () => {
   const solanaConnect = async () => {
     const { solana } = window as any;
     if (!solana) {
-      alert("Please Install Solana");
+      alert("Please Install Solana Wallet");
     }
 
     try {
