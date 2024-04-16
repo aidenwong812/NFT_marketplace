@@ -36,6 +36,14 @@ const SiderList1 = (props: any) => {
           pathname={props.pathname}
           siderWidth={props.siderWidth}
         />
+        <ListComponent
+          _name="Instruction"
+          _icon="/icon/guide_white.svg"
+          _clickedIcon="/icon/guide_blue.svg"
+          _url="/instruction"
+          pathname={props.pathname}
+          siderWidth={props.siderWidth}
+        />
       </ul>
     </>
   );

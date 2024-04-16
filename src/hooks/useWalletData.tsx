@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 
 const useWalletData = () => {
-  const [network, setNetwork] = useState("mainnet-beta");
+  const [network, setNetwork] = useState("devnet");
   const [walletID, setWalletID] = useState("");
   const [connStatus, setConnStatus] = useState(false);
   const [selectedNFT, setSelectedNFT] = useState({});
@@ -14,7 +14,7 @@ const useWalletData = () => {
   const solanaConnect = async () => {
     const { solana } = window as any;
     if (!solana) {
-      alert("Please Install Solana");
+      alert("Please Install Solana Wallet");
     }
 
     try {

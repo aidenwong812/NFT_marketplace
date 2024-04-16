@@ -156,10 +156,13 @@ const NFT = ({ params: { id } }) => {
                 </div>
               </div>
               <button
-                className="w-[130px] h-[45px] rounded-full border border-[#53FAFB] text-[#53FAFB] mr-[10px] hover:bg-[#53FAFB] hover:text-black"
+                className={`w-[130px] h-[45px] rounded-full border border-[#53FAFB] text-[#53FAFB] mr-[10px] ${
+                  !nftTransferModal && "hover:bg-[#53FAFB] hover:text-black"
+                } `}
                 onClick={() => {
                   setNftTransferModal(!nftTransferModal);
                 }}
+                disabled={nftTransferModal}
               >
                 {nftTransferModal ? <Spinner /> : "Transfer"}
               </button>

@@ -139,11 +139,11 @@ const Sider = () => {
                 <div className="w-full aspect-square bg-[#121212] rounded-[10px]"></div>
               )}
               <Image
-                src="/icon/logo.svg"
-                width={0}
+                src="/chicken/logo.png"
+                width={150}
                 height={0}
                 alt=""
-                className={`w-full h-auto`}
+                className="rounded-full"
                 priority={true}
                 onLoad={() => setLoading(false)}
               />

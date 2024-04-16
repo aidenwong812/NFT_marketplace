@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 const NFTHeader = () => {
   return (
-    <>
+    <div className="w-full flex items-end">
       <div className="w-[354px] inline-flex items-center mt-[40px]">
         <div className="relative">
           <Image
@@ -27,7 +27,14 @@ const NFTHeader = () => {
           />
         </button>
       </div>
-    </>
+      <Image
+        src="/home/title.png"
+        width={600}
+        height={0}
+        className="mb-2 ml-5"
+        alt="title"
+      />
+    </div>
   );
 };
 export default NFTHeader;

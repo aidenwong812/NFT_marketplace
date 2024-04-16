@@ -8,17 +8,17 @@ const SpinnerWhite = () => {
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 30px;
-          width: 30px;
+          height: 24px;
+          width: 24px;
         }
         .loader {
           border: 4px solid transparent; /* Light grey */
           border-top: 4px solid white; /* Blue */
           border-left: 4px solid white; /* Blue */
           border-radius: 50%;
-          width: 30px;
-          height: 30px;
-          animation: spin 1.5s linear infinite;
+          width: 24px;
+          height: 24px;
+          animation: spin 1s linear infinite;
         }
         @keyframes spin {
           0% {
