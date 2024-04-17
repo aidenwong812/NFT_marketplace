@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useWallet } from "@/providers/WalletProvider";
 import { toast } from "react-toastify";
+import Image from "next/image";
 
 const Marketplace = () => {
   const router = useRouter();
@@ -30,8 +31,9 @@ const Marketplace = () => {
         })
         .then((res) => {
           if (res.data.success === true) {
-            setListings(res.data.result);
             setActiveNFTs(res.data.result);
+            const mints = res.data.result.map((one) => one.nft_address);
+            setListings(mints);
           } else {
             setActiveNFTs([]);
             toast.info("No NFTs");
@@ -83,14 +85,16 @@ const Marketplace = () => {
                   key={nft.mint}
                   className="relative"
                 >
-                  <Image
-                    src="/home/sale_ribbon.png"
-                    width={100}
-                    height={0}
-                    alt=""
-                    className="absolute -right-2 -top-2"
-                    priority={true}
-                  />
+                  {listings.includes(nft.mint) && (
+                    <Image
+                      src="/home/sale_ribbon.png"
+                      width={100}
+                      height={0}
+                      alt=""
+                      className="absolute -right-2 -top-2"
+                      priority={true}
+                    />
+                  )}
                   <img
                     src={nft.cached_image_uri}
                     alt="nft_image"
