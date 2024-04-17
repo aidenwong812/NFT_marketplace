@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 const NewNFTS = dynamic(() => import("@/components/marketplace/NewNFTs"));
 const Page = () => {
-  const { network, walletID } = useWallet();
+  const { network, walletID, setActiveNFTs } = useWallet();
 
   const [nfts, setNfts] = useState([]);
 
@@ -29,6 +29,7 @@ const Page = () => {
       .then((res) => {
         if (res.data.success === true) {
           setNfts(res.data.result);
+          setActiveNFTs(res.data.result);
         } else {
           setNfts([]);
           toast.info("No NFTs");

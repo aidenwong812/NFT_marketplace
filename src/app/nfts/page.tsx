@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useWallet } from "@/providers/WalletProvider";
@@ -9,18 +8,45 @@ import { toast } from "react-toastify";
 
 const Marketplace = () => {
   const router = useRouter();
-  const { network, walletID } = useWallet();
-  const xKey = process.env.NEXT_PUBLIC_API_KEY.toString();
-  const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
+  const { network, walletID, setActiveNFTs } = useWallet();
 
   const [NFTs, setNFTs] = useState([]);
+  const [listings, setListings] = useState([]);
 
   useEffect(() => {
     if (walletID) {
-      const endpoint = `${endPoint}nft/read_all`;
+      const xKey = process.env.NEXT_PUBLIC_API_KEY.toString();
+      const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
+      const marketplaceAddress = process.env.NEXT_PUBLIC_MARKETPLACE_ADDRESS;
+
+      let nftUrl = `${endPoint}marketplace/active_listings?network=${network}&marketplace_address=${marketplaceAddress}`;
 
       axios
-        .get(endpoint, {
+        .get(nftUrl, {
+          headers: {
+            "Content-Type": "application/json",
+            "x-api-key": xKey,
+          },
+        })
+        .then((res) => {
+          if (res.data.success === true) {
+            setListings(res.data.result);
+            setActiveNFTs(res.data.result);
+          } else {
+            setActiveNFTs([]);
+            toast.info("No NFTs");
+          }
+        })
+        // Catch errors if any
+        .catch((err) => {
+          toast.warning(err.response);
+          setActiveNFTs([]);
+        });
+
+      nftUrl = `${endPoint}nft/read_all`;
+
+      axios
+        .get(nftUrl, {
           headers: {
             "x-api-key": xKey,
           },
