@@ -34,6 +34,7 @@ const NftBuyConfirmModal = dynamic(
   () => import("@/components/Modal/NftBuyConfirmModal")
 );
 const NftListModal = dynamic(() => import("@/components/Modal/NftListModal"));
+const NftUnListModal = dynamic(() => import("@/components/Modal/NftUnListModal"));
 const NftTransferModal = dynamic(
   () => import("@/components/Modal/NftTransferModal")
 );
@@ -76,6 +77,7 @@ export default function RootLayout({
             <NftBuyModal />
             <NftBuyConfirmModal />
             <NftListModal />
+            <NftUnListModal />
             <NftTransferModal />
             <CallActionModal />
             <NewGroupModal />

@@ -11,8 +11,8 @@ import Spinner from "@/components/notification/message/spinner";
 
 const NFT = ({ params: { id } }) => {
   const router = useRouter();
-  const { nftListModal, setNftListModal } = useSettingModal();
-  const { network, setSelectedNFT } = useWallet();
+  const { nftListModal, nftUnListModal, setNftListModal, setNftUnListModal } = useSettingModal();
+  const { network, activeNFTs, setSelectedNFT } = useWallet();
   const xKey = process.env.NEXT_PUBLIC_API_KEY.toString();
   const endPoint = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
@@ -25,6 +25,7 @@ const NFT = ({ params: { id } }) => {
     mint: "",
     royalty: 0,
   });
+  const [active, setActive] = useState(false);
 
   const nftUrl = `${endPoint}nft/read`;
 
@@ -43,6 +44,12 @@ const NFT = ({ params: { id } }) => {
         if (res.data.success) {
           setNFT(res.data.result);
           setSelectedNFT(res.data.result);
+          activeNFTs.map(one => {
+            if (one.nft_address === res.data.result.mint) {
+              setActive(true);
+              return;
+            }
+          });
         }
       })
       .catch((err) => {
@@ -143,15 +150,14 @@ const NFT = ({ params: { id } }) => {
                 </div>
               </div>
               <button
-                className={`w-[130px] h-[45px] rounded-full border border-[#53FAFB] text-[#53FAFB] mr-[10px] ${
-                  !nftListModal && "hover:bg-[#53FAFB] hover:text-black"
-                } `}
+                className={`w-[130px] h-[45px] rounded-full border border-[#53FAFB] text-[#53FAFB] mr-[10px] ${!nftListModal && "hover:bg-[#53FAFB] hover:text-black"
+                  } `}
                 onClick={() => {
-                  setNftListModal(!nftListModal);
+                  active ? setNftUnListModal(!nftUnListModal) : setNftListModal(!nftListModal);
                 }}
-                disabled={nftListModal}
+                disabled={nftListModal || nftUnListModal}
               >
-                {nftListModal ? <Spinner /> : "List"}
+                {nftListModal || nftUnListModal ? <Spinner /> : active ? "Unlist" : "List"}
               </button>
             </div>
           </div>
