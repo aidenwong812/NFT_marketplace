@@ -77,7 +77,7 @@ const Marketplace = () => {
         <div className="w-full h-full bg-[#121212] flex flex-col px-[50px]">
           <p className="text-[20px] mt-[20px]">My NFTs</p>
 
-          <div className="w-full h-full mt-[30px] mb-[30px] relative">
+          <div className="w-full h-full mt-[30px] mb-[30px] overflow-auto p-[10px] relative">
             <div className="w-full flex-none grid grid-cols-4 gap-[30px] absolute max-h-full">
               {NFTs.map((nft) => (
                 <button
