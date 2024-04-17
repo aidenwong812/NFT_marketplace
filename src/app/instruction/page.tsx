@@ -9,7 +9,7 @@ export default function Instruction() {
       <div className="w-full flex flex-col px-[50px] bg-[#121212] overflow-auto absolute h-full">
         <div className="w-full flex justify-center">
           <div className="mt-[30px] w-full inline-flex justify-between items-center mb-[30px]">
-            <p className="text-[25px]">Instruction</p>
+            <p className="text-[25px]">Wallet / Instruction</p>
           </div>
         </div>
         <div className="w-[70%] pb-[30px] mx-auto overflow-auto h-full">
