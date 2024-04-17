@@ -83,8 +83,8 @@ const NFT = ({ params: { id } }) => {
                       className="rounded-[32px]"
                     />
                   </div>
-                  <div className="w-full inline-flex items-center justify-between">
-                    <button className="inline-flex">
+                  <div className="w-full inline-flex items-center justify-center">
+                    <button className="inline-flex items-center">
                       <img
                         width={0}
                         height={0}
@@ -94,20 +94,7 @@ const NFT = ({ params: { id } }) => {
                       />
                       <div className="ml-[20px] text-left">
                         <p>SOFT COQ INU</p>
-                        <p className="text-[12px] text-[#7A7A7A]">
-                          66,2k Members – 272 Active
-                        </p>
                       </div>
-                    </button>
-                    <button className="inline-flex items-center justify-center w-[100px] h-[35px] bg-[#53FAFB] rounded-full">
-                      <p className="text-[13px] text-black font-bold">Joined</p>
-                      <Image
-                        src="/icon/dropdown.svg"
-                        width={0}
-                        height={0}
-                        alt=""
-                        className="w-[10px] ml-[10px]"
-                      />
                     </button>
                   </div>
                 </div>

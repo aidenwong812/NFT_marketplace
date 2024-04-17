@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 
 const useWalletData = () => {
-  const [network, setNetwork] = useState("mainnet-beta");
+  const networkValue = process.env.NEXT_PUBLIC_NETWORK.toString() || "devnet";
+  const [network, setNetwork] = useState(networkValue);
   const [walletID, setWalletID] = useState("");
   const [connStatus, setConnStatus] = useState(false);
   const [selectedNFT, setSelectedNFT] = useState({});
