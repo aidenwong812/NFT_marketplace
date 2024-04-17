@@ -24,6 +24,8 @@ const ModalContext = createContext<{
   setNftBuyConfirmModal: React.Dispatch<React.SetStateAction<boolean>>;
   nftListModal: boolean;
   setNftListModal: React.Dispatch<React.SetStateAction<boolean>>;
+  nftUnListModal: boolean;
+  setNftUnListModal: React.Dispatch<React.SetStateAction<boolean>>;
   nftTransferModal: boolean;
   setNftTransferModal: React.Dispatch<React.SetStateAction<boolean>>;
   callActionModal: boolean;
@@ -55,6 +57,8 @@ const ModalContext = createContext<{
   setNftBuyConfirmModal: () => {},
   nftListModal: false,
   setNftListModal: () => {},
+  nftUnListModal: false,
+  setNftUnListModal: () => {},
   nftTransferModal: false,
   setNftTransferModal: () => {},
   callActionModal: false,
@@ -92,6 +96,7 @@ const SettingModalProvider = ({ children }: { children: React.ReactNode }) => {
   const [nftBuyConfirmModal, setNftBuyConfirmModal] =
     React.useState<boolean>(false);
   const [nftListModal, setNftListModal] = React.useState<boolean>(false);
+  const [nftUnListModal, setNftUnListModal] = React.useState<boolean>(false);
   const [nftTransferModal, setNftTransferModal] =
     React.useState<boolean>(false);
   const [callActionModal, setCallActionModal] = React.useState<boolean>(false);
@@ -117,8 +122,9 @@ const SettingModalProvider = ({ children }: { children: React.ReactNode }) => {
     13: setNewGroupModal,
     14: setNftListModal,
     15: setNftTransferModal,
+    16: setNftUnListModal,
   };
-  const initialValue = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  const initialValue = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
   const handleformat = (index: number) => {
     const functionArray = initialValue.filter((item: number) => item !== index);
     functionArray.map((item, index) => {
@@ -159,6 +165,9 @@ const SettingModalProvider = ({ children }: { children: React.ReactNode }) => {
     if (nftListModal) handleformat(14);
   }, [nftListModal]);
   useEffect(() => {
+    if (nftUnListModal) handleformat(16);
+  }, [nftUnListModal]);
+  useEffect(() => {
     if (nftTransferModal) handleformat(15);
   }, [nftTransferModal]);
   useEffect(() => {
@@ -195,6 +204,8 @@ const SettingModalProvider = ({ children }: { children: React.ReactNode }) => {
         setNftBuyConfirmModal,
         nftListModal,
         setNftListModal,
+        nftUnListModal,
+        setNftUnListModal,
         nftTransferModal,
         setNftTransferModal,
         callActionModal,
