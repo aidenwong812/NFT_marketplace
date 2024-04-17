@@ -50,7 +50,7 @@ const Marketplace = () => {
           <p className="text-[20px] mt-[20px]">Transfer NFTs between Wallets</p>
 
           <div className="w-full h-full mt-[30px] mb-[30px] overflow-auto relative">
-            <div className="w-full flex-none grid grid-cols-4 gap-[20px] overflow-auto absolute max-h-full">
+            <div className="w-full flex-none grid grid-cols-4 gap-[30px] overflow-auto absolute max-h-full">
               {NFTs.map((nft) => (
                 <button
                   onClick={() => router.push(`/transfer/${nft.mint}`)}
@@ -60,7 +60,7 @@ const Marketplace = () => {
                   <img
                     src={nft.cached_image_uri}
                     alt="nft_image"
-                    className="rounded-[18px]"
+                    className="rounded-[18px] w-full aspect-[4/3]"
                   />
                 </button>
               ))}
